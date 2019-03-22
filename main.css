@@ -54,7 +54,7 @@ body {
 .header-container {
   background-image: url("img/mobile-splash-01.jpg");
   background-position: top;
-  max-height: 500px;
+  height: 500px;
 }
 
 .header-mission-statement {
@@ -97,7 +97,6 @@ body {
 }
 
 #massage-container:hover, #facial-container:hover, #body-work-container:hover, #mani-pedi-container:hover {
-  /*background-image: none;*/
   cursor: pointer;
   color: #000;
 }
@@ -137,8 +136,69 @@ body {
   font-size: 1.9rem;
 }
 
+
+/* START DESKTOP STYLES */
+
 @media only screen and (min-width: 769px) {
-  body {
-    background-color: lightblue;
+  
+  .header-container {
+    background-image: url("img/desktop-splash-01.jpg");
+    background-position: center;
+    height: 700px;
   }
+
+  /* services section -- convert to column */
+
+  .services-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: basline;
+    width: 100%;
+  }
+
+  #massage-container, #facial-container, #body-work-container, #mani-pedi-container {
+    width: 25%;
+    height: 500px;
+    border-bottom: 3px solid #fff;
+    border-top: 3px solid #fff;
+    margin: 0 3px 0 0;
+  }
+
+  #mani-pedi-container {
+    margin: 0;
+  }
+
+  #massage-container {
+    background-image: url("img/desktop-services-massage-bg.jpg");
+  }
+  
+  #facial-container {
+    background-image: url("img/desktop-services-facial-bg.jpg");
+  }
+  
+  #body-work-container {
+    background-image: url("img/desktop-services-body-work-bg.jpg");
+  }
+  
+  #mani-pedi-container {
+    background-image: url("img/desktop-services-mani-pedi-bg.jpg");
+  }
+
+  .services-menu { 
+    text-align: center;
+  }
+
+  /* about section */
+
+  .about-container p { 
+    max-width: 900px;
+  }
+
+}
+
+/* MODAL CONTAINER FOR CART STUFF */
+
+.modal-container {
+  background-color: #fff;
+  display: none;
 }
