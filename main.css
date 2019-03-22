@@ -31,11 +31,21 @@ body {
 
 /* navigation styles */
 
+
+
 .navigation-container {
   display: flex;
   justify-content: space-between;
   background-color:rgba(0, 0, 0, 0.44);
   padding: 5px 25px;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #000;
+  margin-bottom: 50px;
 }
 
 .navigation-menu {
@@ -46,8 +56,24 @@ body {
 
 .navigation-menu li {
   list-style-type: none;
+  margin-left: 15px;
 }
 
+.navigation-menu a:link, .navigation-menu a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navigation-menu a:hover, .navigation-menu a:active {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.navigation-menu {
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.6rem;
+}
 
 /* header styles */ 
 
@@ -61,7 +87,11 @@ body {
   color: #fff;
   text-align: center;
   position: relative;
-  bottom: 2px;
+  padding: 25px 50px 25px 50px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 4.2rem;
+  font-style: italic;
+  font-weight: 600;
 }
 
 /* services styles */
@@ -141,11 +171,21 @@ body {
 
 @media only screen and (min-width: 769px) {
   
+  /* slight header modifications for desktop */
+
+
   .header-container {
     background-image: url("img/desktop-splash-01.jpg");
     background-position: center;
     height: 700px;
   }
+
+  .header-mission-statement {
+    padding: 3% 20%;
+    font-size: 5.2rem;
+    letter-spacing: 3px;
+  }
+
 
   /* services section -- convert to column */
 
@@ -198,7 +238,39 @@ body {
 
 /* MODAL CONTAINER FOR CART STUFF */
 
-.modal-container {
-  background-color: #fff;
-  display: none;
+#modal-container {
+    background-color: #fff;
+    box-shadow: 0px 0px 31px 1px rgba(0,0,0,0.3);
+    margin: 0;
+    width: 90%;
+    height: 90%;
+    border-radius: 5px;
+    padding: 25px;
+    z-index: 99;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    display: none;
+}
+
+#modal-container {
+  font-size: 1.9rem;
+}
+
+.modal-inner-content-container {
+  margin: 50px;
+}
+
+#close-button {
+  float: right;
+  color: #ccc;
+  cursor: pointer;
+}
+
+#modal-container h4 {
+  border-bottom: 1px solid #eee;
+  font-size: 2.2rem;
+  margin: 25px 0;
 }
