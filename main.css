@@ -1,3 +1,45 @@
 * {
   box-sizing: border-box;
 }
+
+html {
+  font-size: 10px;
+}
+
+body {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* logo styles */
+
+.logo {
+  color: #fff;
+
+}
+
+/* navigation styles */
+
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+}
+
+.navigation-menu {
+  display: flex;
+}
+
+.navigation-menu li {
+  list-style-type: none;
+}
+
+.header-container {
+  background-image: url(img/mobile-splash-01.jpg);
+  height: 50%;
+  background-color: blue;
+}
+
+
