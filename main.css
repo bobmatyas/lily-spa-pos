@@ -36,10 +36,38 @@ body {
   list-style-type: none;
 }
 
+
+/* header styles */ 
+
 .header-container {
-  background-image: url(img/mobile-splash-01.jpg);
+  background-image: url("img/mobile-splash-01.jpg");
   height: 50%;
-  background-color: blue;
+}
+
+.header-generic-mission-statement {
+  color: #fff;
+  text-align: center;
 }
 
 
+/* services styles */
+
+#massage-container {
+  height: 25%;
+  border-bottom: 1px solid #eee;
+}
+
+#facial-container {
+  height: 25%;
+  border-bottom: 1px solid #eee;
+}
+
+#body-work-container {
+  height: 25%;
+  border-bottom: 1px solid #eee;
+}
+
+#mani-pedi-container {
+  height: 25%;
+  border-bottom: 1px solid #eee;
+}
