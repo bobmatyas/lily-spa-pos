@@ -28,7 +28,7 @@
 
       </nav>
 
-      <h2 class="header-mission-statement">This is the generic mission statement...</h2>
+      <h2 class="header-mission-statement">Paradise is within. Let us take you there...</h2>
     </div>
     
     <div class="services-container" id="services">
@@ -49,12 +49,32 @@
     <div class="about-container" id="about">
 
       <h2>About</h2>
-      <p>Lily Spa is... onsectetur adipiscing elit. Etiam sed arcu vitae lacus rutrum dignissim. Quisque et mi libero. Pellentesque varius sed elit ac convallis. Nunc varius leo a suscipit laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce faucibus pharetra justo, nec suscipit nibh cursus eget. Fusce malesuada faucibus lorem. </p>
+      <p>Lily Spa believes that the elimination of stress and tension is critical to the improvement and maintenance of overall well being.
+        Lily works to improve quality of life through physical and mental rejuvenation. Self esteem and a balance of health and wellness is 
+        achieved in the Oasis of calm at Lily Spa. Treatments, designed to satisfy the whole body, are provided by highly trained staff in the
+        field of massage therapy, esthetics and skincare as well as a full range of body therapies. Our on-going goal is to exceed 
+        the expectations of our individual, group, and corporate clientele with hands-on professional service.
+      </p>
     </div>
 
     <footer class="footer-container">
-      <p>This is a place holder for the footer...</p>
+     <ul class = "list-inline-footer-list">
+       <li>Send Feedback  </li>
+       <li>Gift Cards</li>
+       <li>Careers</li>
+       <li>Promotions</li>
+       <li>Contact US</li>
+
+
+     </ul>
     </footer>
+
+
+
+    
+    <!-- *******************************************************Code for Modal********************************************************************************** -->
+  
+  
   </div>
 
   <div id="modal-container">
@@ -81,6 +101,149 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="main.js"></script>
+
+
+<!--*************************************************** Check-out Modal*****************************************************************************************-->
+
+ <div class="checkout-panel">
+    <div class="panel-body">
+      <h2 class="title">Checkout</h2>
+      <div class="payment-method">
+        <label for="card" class="method card">
+          <div class="card-logos">
+          </div>
+
+          <div class="Payment-method-two">
+              <label for="card" class="cash">
+              </div>
+          <div class="radio-input">
+            <input id="card" type="radio" name="payment">
+            Pay 340.00 with credit card
+            </div>
+            </label>
+          </div>
+   
+      <div class="input-fields">
+        <div class="column-1">
+          <label for="cardholder">Cardholder's Name</label>
+          <input type="text" id="cardholder" />
+   
+          <div class="small-inputs">
+            <div>
+              <label for="date">Valid thru</label>
+              <input type="text" id="date" placeholder="MM / YY" />
+            </div>
+   
+            <div>
+              <label for="verification">CVV / CVC *</label>
+              <input type="password" id="verification"/>
+            </div>
+          </div>
+        </div>
+        <div class="column-2">
+          <label for="cardnumber">Card Number</label>
+          <input type="password" id="cardnumber"/>
+          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
+        </div>
+      </div>
+    </div>
+   
+    <div class="panel-footer">
+      <button class="btn back-btn">Back</button>
+      <button class="btn next-btn">Next Step</button>
+    </div>
+  </div> -->
+<!-- ****************************************************************************** Receipt Form Code ******************************************************************************************* -->
+ 
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img src="logo.png" style="width:100%; max-width:200px;">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            Lily's Spa, LLC.<br>
+                            2900 Grandville<br>
+                            Grand Rapids, MI 49519
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr class="heading">
+            <td>
+                Payment Method
+            </td>
+            
+            <td>
+                Credit Card/ Debit Card
+            </td>
+        </tr>
+        
+       <br></br>
+
+        <tr class="heading">
+            <td>
+                Item
+            </td>
+            
+            <td>
+                Price
+            </td>
+        </tr>
+        
+        <tr class="item">
+            <td>
+               Body Masage
+            </td>
+            
+            <td>
+                $300.00
+            </td>
+        </tr>
+        <tr class="item">
+            <td>
+                Manicure
+            </td>
+            
+            <td>
+                $75.00
+            </td>
+        </tr>
+        
+        <tr class="item last">
+            <td>
+                Pedicure
+            </td>
+            
+            <td>
+                $10.00
+            </td>
+        </tr>
+        
+        <tr class="total">
+            <td></td>
+            
+            <td>
+               Total: $385.00
+            </td>
+        </tr>
+    </table>
+</div> -->
 </body>
+
 
 </html>
