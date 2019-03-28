@@ -105,8 +105,7 @@ $(() => {
 
     let showService = serviceId;
 
-    console.log('services array:', servicesArray);
-    console.log('How to access service array: ', servicesArray[0].data);
+    // console.log('How to access service array: ', servicesArray[0].data);
   }
 
   /* close modal */
@@ -126,9 +125,18 @@ $(() => {
     console.log("The event target's text:", $(event.target).text());
     let serviceTitle = $(event.target).text();
 
+
     // Loop goes here
     for (let service of servicesArray) {
-      console.log('Service name:', service.name);
+      //This is where the service will be chosen
+
+      console.log('Service category:', service.name);
+      // console.log('Service data:', service.data);
+      for( let data of service.data) {
+        console.log('Service name:', data.name);
+        console.log('Service price:', data.price);
+        console.log('Service description:', data.description);
+      }
     }
 
     //This if statement matches the logic. 
