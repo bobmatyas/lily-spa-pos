@@ -263,7 +263,7 @@ $(() => {
     <div class="panel-body">
       <h2 class="title">Checkout</h2>
       <div class="payment-method">
-        <label for="card" class="method card">
+        <div class="method card">
           <div class="card-logos">
           </div>
 
@@ -272,9 +272,13 @@ $(() => {
               </div>
           <div class="radio-input">
             <input id="card" type="radio" name="payment">
-            Pay 340.00 with credit card
+            Pay 385.00 with credit card
+          </div>
+          <div class="radio-input">
+          <input id="card" type="radio" name="payment">
+          Pay 385.00 with cash
+        </div>
             </div>
-            </label>
           </div>
    
       <div class="input-fields">
@@ -320,6 +324,7 @@ $(() => {
     console.log('call to the payment processing function');
     // console.log(`checkout html in payment processor: ${checkoutHTML}`);
     $('#modal-html-holder').html(checkoutHTML);
+    
     //console.log(checkoutHTML);
   }
 
