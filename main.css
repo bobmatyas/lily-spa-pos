@@ -302,12 +302,13 @@ margin: 0 auto;
 /* *****************************************************************************Check-out from style***********************************************************************************************
 */
 
+/* 
 
 * {
 	box-sizing: border-box;
   }
    
-  html,
+html,
   body {
 	font-family: 'Montserrat', sans-serif;
 	display: flex;
@@ -316,7 +317,7 @@ margin: 0 auto;
 	background: #f4f4f4;
 	justify-content: center;
 	align-items: center;
-  }
+  } */
 
   .checkout-panel {
 	display: flex;
