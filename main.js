@@ -294,6 +294,16 @@ $(() => {
     </div>
   </div>`;
 
+  let paymentProcessing = (checkoutHTML) => {
+    console.log('call to the payment processing function');
+    console.log(`checkout html in payment processor: ${checkoutHTML}`);
+    $('#modal-html-holder').html(checkoutHTML);
+    //console.log(checkoutHTML);
+  }
+
+  let testOfPayment = paymentProcessing(checkoutHTML);
+  console.log(testOfPayment);
+
   // console.log(checkoutHTML);
 
   /* test listener to insert Receipt HTML */
@@ -303,9 +313,11 @@ $(() => {
     });
 
   /* test listener to insert checkout HTML */
-    $('#show-checkout').on('click', () => {
+    $('#show-checkout').on('click', {msg: checkoutHTML}, (event) => {
+      // console.log(`this is event: ${event}`);
+      // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
       $('#modal-html-holder').text('');
-      $('#modal-html-holder').html(checkoutHTML);
+      paymentProcessing(checkoutHTML);
       $('#modal-services-menu').hide();
     });
 
