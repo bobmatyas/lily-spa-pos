@@ -149,5 +149,165 @@ $(() => {
 
     //This is the empty array for the reciept
     const recieptArray = [];
+
+
+  /* test stuff for the steps in the process... this can be moved safely with a copy and paste */
+
+  /* this will eventually help with making the template for the receipt page */
+
+  let receiptHTML = 
+  `<div class="invoice-box">
+  <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+          <td colspan="2">
+              <table>
+                  <tr>
+                      <td class="title">
+                      </td>
+                  </tr>
+              </table>
+          </td>
+      </tr>
+      
+      <tr class="information">
+          <td colspan="2">
+              <table>
+                  <tr>
+                      <td>
+                          Lily's Spa, LLC.<br>
+                          2900 Grandville<br>
+                          Grand Rapids, MI 49519
+                      </td>
+                  </tr>
+              </table>
+          </td>
+      </tr>
+      
+      <tr class="heading">
+          <td>
+              Payment Method
+          </td>
+          
+          <td>
+              Credit Card/ Debit Card
+          </td>
+      </tr>
+      <tr class="heading">
+          <td>
+              Item
+          </td>
+          
+          <td>
+              Price
+          </td>
+      </tr>
+      
+      <tr class="item">
+          <td>
+             Body Masage
+          </td>
+          
+          <td>
+              $300.00
+          </td>
+      </tr>
+      <tr class="item">
+          <td>
+              Manicure
+          </td>
+          
+          <td>
+              $75.00
+          </td>
+      </tr>
+      
+      <tr class="item last">
+          <td>
+              Pedicure
+          </td>
+          
+          <td>
+              $10.00
+          </td>
+      </tr>
+      
+      <tr class="total">
+          <td></td>
+          
+          <td>
+             Total: $385.00
+          </td>
+      </tr>
+  </table>
+</div>`;
+
+    
+    /* this will eventually help with making the template for the checkout page */
+
+    let checkoutHTML = `
+    <div class="checkout-panel">
+    <div class="panel-body">
+      <h2 class="title">Checkout</h2>
+      <div class="payment-method">
+        <label for="card" class="method card">
+          <div class="card-logos">
+          </div>
+
+          <div class="Payment-method-two">
+              <label for="card" class="cash">
+              </div>
+          <div class="radio-input">
+            <input id="card" type="radio" name="payment">
+            Pay 340.00 with credit card
+            </div>
+            </label>
+          </div>
+   
+      <div class="input-fields">
+        <div class="column-1">
+          <label for="cardholder">Cardholder's Name</label>
+          <input type="text" id="cardholder" />
+   
+          <div class="small-inputs">
+            <div>
+              <label for="date">Valid thru</label>
+              <input type="text" id="date" placeholder="MM / YY" />
+            </div>
+   
+            <div>
+              <label for="verification">CVV / CVC *</label>
+              <input type="password" id="verification"/>
+            </div>
+          </div>
+        </div>
+        <div class="column-2">
+          <label for="cardnumber">Card Number</label>
+          <input type="password" id="cardnumber"/>
+          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
+        </div>
+      </div>
+    </div>
+   
+    <div class="panel-footer">
+      <button class="btn back-btn">Back</button>
+      <button class="btn next-btn">Next Step</button>
+    </div>
+  </div>`;
+
+  // console.log(checkoutHTML);
+
+  /* test listener to insert Receipt HTML */
+    $('#show-receipt').on('click', () => {
+      $('#modal-html-holder').html(receiptHTML);
+      $('#modal-services-menu').hide();
+    });
+
+  /* test listener to insert checkout HTML */
+    $('#show-checkout').on('click', () => {
+      $('#modal-html-holder').text('');
+      $('#modal-html-holder').html(checkoutHTML);
+      $('#modal-services-menu').hide();
+    });
+
   });
 });

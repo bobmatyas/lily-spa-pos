@@ -96,7 +96,7 @@
         </div>
       </div>
 
-      <div class="modal-services-menu-container">
+      <div class="modal-services-menu-container" id="modal-services-menu">
         <ul class="modal-services-menu">
           <li>Massage</li>
           <li>Facial</li>
@@ -108,152 +108,26 @@
       
       <p id="information"></p>
       
+      <div id="modal-html-holder">
 
+      </div>
+
+      <div id="modal-checkout-holder"></div>
+      
+      <button id="show-receipt" class="button-next">Show Receipt</button>
+
+      <button id="show-checkout" class="button-next">Show Checkout</button>
     
     </div>
   </div>
   
-
-
-
 <!--****************** Check-out Modal ******************-->
 
- <div class="checkout-panel">
-    <div class="panel-body">
-      <h2 class="title">Checkout</h2>
-      <div class="payment-method">
-        <label for="card" class="method card">
-          <div class="card-logos">
-          </div>
-
-          <div class="Payment-method-two">
-              <label for="card" class="cash">
-              </div>
-          <div class="radio-input">
-            <input id="card" type="radio" name="payment">
-            Pay 340.00 with credit card
-            </div>
-            </label>
-          </div>
-   
-      <div class="input-fields">
-        <div class="column-1">
-          <label for="cardholder">Cardholder's Name</label>
-          <input type="text" id="cardholder" />
-   
-          <div class="small-inputs">
-            <div>
-              <label for="date">Valid thru</label>
-              <input type="text" id="date" placeholder="MM / YY" />
-            </div>
-   
-            <div>
-              <label for="verification">CVV / CVC *</label>
-              <input type="password" id="verification"/>
-            </div>
-          </div>
-        </div>
-        <div class="column-2">
-          <label for="cardnumber">Card Number</label>
-          <input type="password" id="cardnumber"/>
-          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
-        </div>
-      </div>
-    </div>
-   
-    <div class="panel-footer">
-      <button class="btn back-btn">Back</button>
-      <button class="btn next-btn">Next Step</button>
-    </div>
-  </div>
-
+  <!-- moved into JS -->
+ 
 <!-- ******************* Receipt Form Code *************** -->
  
-<div class="invoice-box">
-    <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td class="title">
-                            <img src="logo.png" style="width:100%; max-width:200px;">
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        
-        <tr class="information">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td>
-                            Lily's Spa, LLC.<br>
-                            2900 Grandville<br>
-                            Grand Rapids, MI 49519
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        
-        <tr class="heading">
-            <td>
-                Payment Method
-            </td>
-            
-            <td>
-                Credit Card/ Debit Card
-            </td>
-        </tr>
-        <tr class="heading">
-            <td>
-                Item
-            </td>
-            
-            <td>
-                Price
-            </td>
-        </tr>
-        
-        <tr class="item">
-            <td>
-               Body Masage
-            </td>
-            
-            <td>
-                $300.00
-            </td>
-        </tr>
-        <tr class="item">
-            <td>
-                Manicure
-            </td>
-            
-            <td>
-                $75.00
-            </td>
-        </tr>
-        
-        <tr class="item last">
-            <td>
-                Pedicure
-            </td>
-            
-            <td>
-                $10.00
-            </td>
-        </tr>
-        
-        <tr class="total">
-            <td></td>
-            
-            <td>
-               Total: $385.00
-            </td>
-        </tr>
-    </table>
-</div> 
+  <!-- moved into JS -->
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
