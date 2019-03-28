@@ -278,7 +278,30 @@ body {
 }
 
 .modal-inner-content-container {
-  margin: 50px;
+  margin: 25px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.modal-services-menu {
+  list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.modal-services-menu li {
+  padding: 5px 15px;
+  font-size: 90%;
+  background-color: #ccc;
+  margin-left: 5px;
+  border-radius: 5px 5px 0 0;
 }
 
 #close-button {
@@ -293,12 +316,17 @@ body {
   margin: 25px 0;
 }
 
+
+
+/* FOOTER STYLES */
+
 .list-inline-footer-list{
 display: inline;
 line-height: 41px;
 margin: 0 auto;
 }
  
+
 /* *****************************************************************************Check-out from style***********************************************************************************************
 */
 
