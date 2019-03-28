@@ -235,9 +235,23 @@ $(() => {
           <td></td>
           
           <td>
-             Total: $385.00
+             Sub-Total: $385.00
           </td>
       </tr>
+    <tr class="total">
+      <td></td>
+      
+      <td>
+         Taxes: $23.10
+      </td>
+    </tr>
+    <tr class="total">
+    <td></td>
+    
+    <td>
+       Total: $408.10
+    </td>
+  </tr>
   </table>
 </div>`;
 
@@ -294,15 +308,23 @@ $(() => {
     </div>
   </div>`;
 
+  /* simple function to count sales tax, used on receipt */
+
+  let caculateSalesTax = (totalBeforeTaxes) => {
+    let totalAfterTaxes = totalBeforeTaxes * 1.06;
+    return totalAfterTaxes;
+  }
+
+  
   let paymentProcessing = (checkoutHTML) => {
     console.log('call to the payment processing function');
-    console.log(`checkout html in payment processor: ${checkoutHTML}`);
+    // console.log(`checkout html in payment processor: ${checkoutHTML}`);
     $('#modal-html-holder').html(checkoutHTML);
     //console.log(checkoutHTML);
   }
 
-  let testOfPayment = paymentProcessing(checkoutHTML);
-  console.log(testOfPayment);
+  // let testOfPayment = paymentProcessing(checkoutHTML);
+  // console.log(testOfPayment);
 
   // console.log(checkoutHTML);
 
@@ -321,5 +343,21 @@ $(() => {
       $('#modal-services-menu').hide();
     });
 
+  /* test listener to insert checkout HTML */
+    $('#show-cart').on('click', (event) => {
+      // console.log(`this is event: ${event}`);
+      // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
+      
+      // static cart items test //
+
+      let cartContentsCount = 3;
+      $('#show-number-cart-items').text(cartContentsCount);
+
+      // show place holder text //
+      $('#modal-html-holder').text('');
+      $('#modal-html-holder').html('<p>this is the review cart placeholder</p>');
+      $('#modal-services-menu').hide();
+    });
+  
   });
 });
