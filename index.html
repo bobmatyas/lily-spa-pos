@@ -23,7 +23,9 @@
         <ul class="navigation-menu">
           <li><a href="#about">about</a></li>
           <li><a href="#services">services</a></li>
-          <li id="open-cart-button"><svg width="25" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart" class="svg-inline--fa fa-shopping-cart fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="white" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg></li>
+          <li id="open-cart-button"><svg width="25" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart" class="svg-inline--fa fa-shopping-cart fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="white" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>
+            <span id="show-number-cart-items-main"> </span>
+          </li>
         </ul>
 
       </nav>
@@ -83,158 +85,60 @@
           <i class="material-icons" id="close-button">close</i>
       </div>
 
-      <img src="img/logo-modal-no-text.png" alt="lily spa">
+      <div class="modal-header">
+        <div>
+          <img src="img/logo-modal-no-text.png" alt="lily spa" width="75">
+        </div>
+        <div>
+          <h4 id="service-title">Book a Service</h4>
+        </div>
+        <div>
+          <svg width="25" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart" class="svg-inline--fa fa-shopping-cart fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="black" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>
+          <span id="show-number-cart-items"></span>
+        </div>
+      </div>
+
+      <div class="modal-services-menu-container" id="modal-services-menu">
+        <ul class="modal-services-menu">
+          <li>Massage</li>
+          <li>Facial</li>
+          <li>Body Work</li>
+          <li>Mani / Pedi</li>
+        </ul>
+      </div>
       
-      <h4 id="service-title">placeholder</h4>
+      
       <p id="information"></p>
+      
+      <div id="modal-html-holder">
+
+      </div>
+
+      <div id="modal-checkout-holder"></div>
+
+      <button id="show-cart" class="button-next">Show Cart</button>
+
+      <button id="show-checkout" class="button-next">Show Checkout</button>
+
+      <button id="show-receipt" class="button-next">Show Receipt</button>
+
+    
     </div>
   </div>
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="main.js"></script>
+<!--****************** Check-out Modal ******************-->
 
-
-<!--*************************************************** Check-out Modal*****************************************************************************************-->
-
- <div class="checkout-panel">
-    <div class="panel-body">
-      <h2 class="title">Checkout</h2>
-      <div class="payment-method">
-        <label for="card" class="method card">
-          <div class="card-logos">
-          </div>
-
-          <div class="Payment-method-two">
-              <label for="card" class="cash">
-              </div>
-          <div class="radio-input">
-            <input id="card" type="radio" name="payment">
-            Pay 340.00 with credit card
-            </div>
-            </label>
-          </div>
-   
-      <div class="input-fields">
-        <div class="column-1">
-          <label for="cardholder">Cardholder's Name</label>
-          <input type="text" id="cardholder" />
-   
-          <div class="small-inputs">
-            <div>
-              <label for="date">Valid thru</label>
-              <input type="text" id="date" placeholder="MM / YY" />
-            </div>
-   
-            <div>
-              <label for="verification">CVV / CVC *</label>
-              <input type="password" id="verification"/>
-            </div>
-          </div>
-        </div>
-        <div class="column-2">
-          <label for="cardnumber">Card Number</label>
-          <input type="password" id="cardnumber"/>
-          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
-        </div>
-      </div>
-    </div>
-   
-    <div class="panel-footer">
-      <button class="btn back-btn">Back</button>
-      <button class="btn next-btn">Next Step</button>
-    </div>
-  </div> -->
-<!-- ****************************************************************************** Receipt Form Code ******************************************************************************************* -->
+  <!-- moved into JS -->
  
-<div class="invoice-box">
-    <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td class="title">
-                            <img src="logo.png" style="width:100%; max-width:200px;">
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        
-        <tr class="information">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td>
-                            Lily's Spa, LLC.<br>
-                            2900 Grandville<br>
-                            Grand Rapids, MI 49519
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        
-        <tr class="heading">
-            <td>
-                Payment Method
-            </td>
-            
-            <td>
-                Credit Card/ Debit Card
-            </td>
-        </tr>
-        
-       <br></br>
+<!-- ******************* Receipt Form Code *************** -->
+ 
+  <!-- moved into JS -->
 
-        <tr class="heading">
-            <td>
-                Item
-            </td>
-            
-            <td>
-                Price
-            </td>
-        </tr>
-        
-        <tr class="item">
-            <td>
-               Body Masage
-            </td>
-            
-            <td>
-                $300.00
-            </td>
-        </tr>
-        <tr class="item">
-            <td>
-                Manicure
-            </td>
-            
-            <td>
-                $75.00
-            </td>
-        </tr>
-        
-        <tr class="item last">
-            <td>
-                Pedicure
-            </td>
-            
-            <td>
-                $10.00
-            </td>
-        </tr>
-        
-        <tr class="total">
-            <td></td>
-            
-            <td>
-               Total: $385.00
-            </td>
-        </tr>
-    </table>
-</div> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="main.js"></script>
+
 </body>
 
 
