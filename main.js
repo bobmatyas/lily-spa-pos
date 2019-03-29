@@ -119,7 +119,18 @@ $(() => {
     $('#information').empty();
 
     // Populate the information box
+
+    //This is the title of the category
+    $('#information')
+        .append(
+          $(`<h2/>`)
+            .html(`${serviceTitle}`)
+        );
+   
+    //this loops through the data and prints out 
+    //the info name, price, description and adds a button
     for (let info of data) {
+      
       $('#information')
         .append(
           $(`<h4/>`)
@@ -143,8 +154,7 @@ $(() => {
         cartArray.push(info.price);
       })
     }
-
-    // serviceId = `#${event.target.id}`;
+    
     showModal(serviceId);
 
   });
