@@ -3,6 +3,7 @@
 $(() => {
 
   /* sticky menu on scroll */
+
   $(window).trigger('scroll');
   $(window).bind('scroll', function () {
     let pixels = 300; //number of pixels before modifying styles
@@ -19,26 +20,26 @@ $(() => {
   Maybe even say "nothing in the cart" when no items are in there*/
 
   let cartArray = [];
+
   function updateCartCount (){
     let cartContentsCount = cartArray.length;
-    // let cartContentsCount = 3;
-    $('#show-number-cart-items').text(cartContentsCount);
-    $('#show-number-cart-items-main').text(cartContentsCount);
+    // only display cart contents if an item has been purchased
+    if (cartContentsCount > 0) {
+      $('#show-number-cart-items').text(cartContentsCount);
+      $('#show-number-cart-items-main').text(cartContentsCount);
+    }
   }
 
   $('#open-cart-button').on('click', () => {
-    // let cartContentsCount = cartArray.length;
-    // // let cartContentsCount = 3;
-    // $('#show-number-cart-items').text(cartContentsCount);
-    // $('#show-number-cart-items-main').text(cartContentsCount);
+    $('#checkout-flow-title').text('Your Cart');
     $('#information').empty();
-    $('#information').append(cartArray);
+    $('#information').text(cartArray);
     //for each item in the cart array use the for of loop
     //in the loop, append the name and price to #information
     //you will replace line 35
     $('#modal-container').show();
     updateCartCount();
-    console.log(cartArray);
+    console.log(`This is cart array in open cart function: ${cartArray}`);
   });
 
   //This is to set up the classes
@@ -118,7 +119,9 @@ $(() => {
   console.log(services);
   let serviceId;
 
+  
   //for all these html elements when they get clicked on do the following 
+
   $(services).on('click', (event) => {
     // Make an array of all the cool objets you've set up for each service type
     // Loop through array to find the object you want
@@ -160,7 +163,7 @@ $(() => {
         updateCartCount();
       })
     }
-
+ 
     // serviceId = `#${event.target.id}`;
     showModal(serviceId);
 
