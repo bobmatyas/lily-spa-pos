@@ -357,6 +357,7 @@ $(() => {
 
       let cartContentsCount = 3;
       $('#show-number-cart-items').text(cartContentsCount);
+      $('#show-number-cart-items-main').text(cartContentsCount);
 
       // show place holder text //
       $('#modal-html-holder').text('');
