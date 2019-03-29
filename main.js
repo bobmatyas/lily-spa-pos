@@ -56,10 +56,10 @@ $(() => {
               Price
           </td>
       </tr>`;
-    $('#modal-html-holder').html(htmlCartHeader);
+    //$('#modal-html-holder').html(htmlCartHeader);
 
    
-
+    let cartHtmlContents = htmlCartHeader;
 
     for (let key in cartArray) {
       let lastItem = parseInt(key) + 1;
@@ -67,11 +67,13 @@ $(() => {
         console.log('this is the last item');
         let htmlItemDisplay = `
         <tr class="item" id="last-item-in-table"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
-        $('#html-table-start').after(htmlItemDisplay);
+        //$('#html-table-start').after(htmlItemDisplay);
+        cartHtmlContents = `${cartHtmlContents}${htmlItemDisplay}`;
       } else {
         let htmlItemDisplay = `
         <tr class="item"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
-        $('#html-table-start').after(htmlItemDisplay);
+        //$('#html-table-start').after(htmlItemDisplay);
+        cartHtmlContents = `${cartHtmlContents}${htmlItemDisplay}`;
       }
       
       // subTotalDisplay = subTotalDisplay + cartArray[key].price;  
@@ -83,31 +85,40 @@ $(() => {
     let taxes = subTotalDisplay * 1.06;
     console.log(`total after taxes: ${taxes}`);
 
+    let totalAfterTaxes = taxes + subTotalDisplay;
+
+    /* fix the rounding */
+
+    let totalRounded = totalAfterTaxes.toFixed(2);
+
+
     let htmlCartFooter = `
     <tr class="total">
     <td></td>
     
     <td>
-       Sub-Total: $385.00
+       Sub-Total: $${subTotalDisplay}
     </td>
 </tr>
 <tr class="total">
 <td></td>
 
 <td>
-   Taxes: $23.10
+   Taxes: $${taxes}
 </td>
 </tr>
 <tr class="total">
 <td></td>
 
 <td>
- Total: $408.10
+ Total: $${totalRounded}
 </td>
 </tr>
 </table>
 </div>`;
 
+    cartHtmlContents = `${cartHtmlContents}${htmlCartFooter}`;
+    $('#modal-html-holder').html(cartHtmlContents);
   }
 
 
