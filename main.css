@@ -259,10 +259,19 @@ body {
 
   /* about section */
 
-  .about-container p { 
-    max-width: 1200px;
-    margin: 0 auto;
+  .about-container {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-around;
   }
+
+
+  .about-container p { 
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 50px;
+  }
+
 
 }
 
