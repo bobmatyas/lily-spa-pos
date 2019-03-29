@@ -19,9 +19,12 @@ $(() => {
   This will need to open to just the items in the cart
   Maybe even say "nothing in the cart" when no items are in there*/
 
+  /* this array holds the contents of the cart */
   let cartArray = [];
 
-  function updateCartCount (){
+  /* this function updates the cart contents on call */
+
+  function updateCartCount () {
     let cartContentsCount = cartArray.length;
     // only display cart contents if an item has been purchased
     if (cartContentsCount > 0) {
@@ -29,6 +32,65 @@ $(() => {
       $('#show-number-cart-items-main').text(cartContentsCount);
     }
   }
+
+
+  /* this function shows the contents of the cart */
+
+  let showCartContents = (cartArray) => {
+    console.log(`SHOW CART CONTENTS CALLED SUCCESSFULLY`);
+    console.log(`This is the cartArray in showCartContents: ${cartArray}`);
+
+    let htmlCartHeader = `
+    <div class="invoice-box">
+  <table cellpadding="0" cellspacing="0">    
+      <tr class="heading" id="html-table-start">
+          <td>
+              Item
+          </td>
+          
+          <td>
+              Price
+          </td>
+      </tr>`;
+    $('#modal-html-holder').html(htmlCartHeader);
+
+    for (let key in cartArray) {
+      console.log(`Item in Cart: ${cartArray[key].name}`);
+      console.log(`Item Price: ${cartArray[key].price}`);
+      let htmlItemDisplay = `
+      <tr class="item"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
+      console.log(htmlItemDisplay);
+      $('#html-table-start').after(htmlItemDisplay);
+    }
+    let htmlCartFooter = `
+    <tr class="total">
+    <td></td>
+    
+    <td>
+       Sub-Total: $385.00
+    </td>
+</tr>
+<tr class="total">
+<td></td>
+
+<td>
+   Taxes: $23.10
+</td>
+</tr>
+<tr class="total">
+<td></td>
+
+<td>
+ Total: $408.10
+</td>
+</tr>
+</table>
+</div>`;
+  }
+
+
+
+  /* this is listening to open the cart when clicked on the main page menu */
 
   $('#open-cart-button').on('click', () => {
     $('#checkout-flow-title').text('Your Cart');
@@ -40,7 +102,13 @@ $(() => {
     $('#modal-container').show();
     updateCartCount();
     console.log(`This is cart array in open cart function: ${cartArray}`);
+    if (cartArray.length > 0) {
+      showCartContents(cartArray);
+    } else {
+      console.log(`CART IS EMPTY YO!@#!`);
+    }
   });
+
 
   //This is to set up the classes
   class category {
@@ -116,7 +184,7 @@ $(() => {
   /* this sets up listeners for when the user clicks on services */
   let services = $('#services').children();
   // console.log({ services });
-  console.log(services);
+  console.log(`this is what services is: ${services}`);
   let serviceId;
 
   
@@ -127,9 +195,12 @@ $(() => {
     // Loop through array to find the object you want
     // Pull out that object's info!
 
-    // console.log("The event target's text:", $(event.target).text());
+    console.log("The event target's text:", $(event.target).text());
     let serviceTitle = $(event.target).text();
 
+    console.log(`this is the service title clicked on: ${serviceTitle}`);
+
+    console.log(`services title object: ${servicesList[serviceTitle]}`);
     const data = servicesList[serviceTitle];
 
     console.log("service data:", data, serviceTitle);
