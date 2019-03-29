@@ -31,6 +31,7 @@ $(() => {
     let cartContentsCount = cartArray.length;
     // only display cart contents if an item has been purchased
     if (cartContentsCount > 0) {
+      $('#cart-contents').show();
       $('#show-number-cart-items').text(cartContentsCount);
       $('#show-number-cart-items-main').text(cartContentsCount);
     }
@@ -77,6 +78,10 @@ $(() => {
     }
     
     console.log(`sub total: ${subTotalDisplay}`);
+    
+    // calculate taxes
+    let taxes = subTotalDisplay * 1.06;
+    console.log(`total after taxes: ${taxes}`);
 
     let htmlCartFooter = `
     <tr class="total">
@@ -107,9 +112,9 @@ $(() => {
 
 
 
-  /* this is listening to open the cart when clicked on the main page menu */
+  /* this is listening to open the cart when clicked on  */
 
-  $('#open-cart-button').on('click', () => {
+  $('#open-cart-button, #cart-contents').on('click', () => {
     $('#checkout-flow-title').text('Your Cart');
     $('#information').empty();
     $('#information').text(cartArray);
@@ -118,11 +123,11 @@ $(() => {
     //you will replace line 35
     $('#modal-container').show();
     updateCartCount();
-    console.log(`This is cart array in open cart function: ${cartArray}`);
+    // console.log(`This is cart array in open cart function: ${cartArray}`);
     if (cartArray.length > 0) {
       showCartContents(cartArray);
     } else {
-      console.log(`CART IS EMPTY YO!@#!`);
+      // console.log(`CART IS EMPTY YO!@#!`);
     }
   });
 
@@ -204,13 +209,14 @@ $(() => {
   console.log(`this is what services is: ${services}`);
   let serviceId;
 
-  
   //for all these html elements when they get clicked on do the following 
 
   $(services).on('click', (event) => {
     // Make an array of all the cool objets you've set up for each service type
     // Loop through array to find the object you want
     // Pull out that object's info!
+
+    $('#checkout-flow-title').text('Book A Service');
 
     console.log("The event target's text:", $(event.target).text());
     let serviceTitle = $(event.target).text();
@@ -422,7 +428,7 @@ $(() => {
 
     /* simple function to count sales tax, used on receipt */
 
-    let caculateSalesTax = (totalBeforeTaxes) => {
+    const calculateSalesTax = (totalBeforeTaxes) => {
       let totalAfterTaxes = totalBeforeTaxes * 1.06;
       return totalAfterTaxes;
     }
@@ -458,22 +464,22 @@ $(() => {
       $('#modal-services-menu').hide();
     });
 
-    /* test listener to insert checkout HTML */
-    $('#show-cart').on('click', (event) => {
-      // console.log(`this is event: ${event}`);
-      // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
+    // /* test listener to insert checkout HTML */
+    // $('#show-cart').on('click', (event) => {
+    //   // console.log(`this is event: ${event}`);
+    //   // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
 
-      // static cart items test //
+    //   // static cart items test //
 
-      // let cartContentsCount = 3;
-      // $('#show-number-cart-items').text(cartContentsCount);
-      // $('#show-number-cart-items-main').text(cartContentsCount);
+    //   // let cartContentsCount = 3;
+    //   // $('#show-number-cart-items').text(cartContentsCount);
+    //   // $('#show-number-cart-items-main').text(cartContentsCount);
 
-      // show place holder text //
-      $('#modal-html-holder').text('');
-      $('#modal-html-holder').html('<p>this is the review cart placeholder</p>');
-      $('#modal-services-menu').hide();
-    });
+    //   // show place holder text //
+    //   $('#modal-html-holder').text('');
+    //   $('#modal-html-holder').html('<p>this is the review cart placeholder</p>');
+    //   $('#modal-services-menu').hide();
+    // });
 
   });
 });

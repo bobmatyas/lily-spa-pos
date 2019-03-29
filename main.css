@@ -192,6 +192,9 @@ body {
   color: #282660;
 }
 
+#cart-contents {
+  display: none;
+}
 
 
 /* START DESKTOP STYLES */
@@ -302,6 +305,10 @@ body {
   margin: 25px;
 }
 
+.modal-controls-header {
+  display: flex;
+  justify-content: space-between;
+}
 .modal-header {
   display: flex;
   justify-content: space-between;
