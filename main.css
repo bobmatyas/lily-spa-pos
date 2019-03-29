@@ -181,7 +181,18 @@ body {
   font-size: 1.4rem;
   border: none;
   cursor: pointer;
+  transition: all .2s ease-in-out;
+  font-weight: 600;
 }
+
+.button-next:hover {
+  transform: scale(1.05);
+  background-color: #fff;
+  border: 1px solid #282660;
+  color: #282660;
+}
+
+
 
 /* START DESKTOP STYLES */
 
@@ -249,7 +260,8 @@ body {
   /* about section */
 
   .about-container p { 
-    max-width: 900px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
 }
@@ -278,7 +290,30 @@ body {
 }
 
 .modal-inner-content-container {
-  margin: 50px;
+  margin: 25px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.modal-services-menu {
+  list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.modal-services-menu li {
+  padding: 5px 15px;
+  font-size: 90%;
+  background-color: #ccc;
+  margin-left: 5px;
+  border-radius: 5px 5px 0 0;
 }
 
 #close-button {
@@ -293,43 +328,22 @@ body {
   margin: 25px 0;
 }
 
+
+
+/* FOOTER STYLES */
+
 .list-inline-footer-list{
 display: inline;
 line-height: 41px;
 margin: 0 auto;
 }
  
-/* *****************************************************************************Check-out from style***********************************************************************************************
-*/
 
-/* 
+/* ******* Check-out from style *******/
 
-* {
-	box-sizing: border-box;
-  }
-   
-html,
-  body {
-	font-family: 'Montserrat', sans-serif;
-	display: flex;
-	width: 100%;
-	height: 100%;
-	background: #f4f4f4;
-	justify-content: center;
-	align-items: center;
-  } */
 
-  .checkout-panel {
-	display: flex;
-	flex-direction: column;
-	width: 940px;
-	height: 766px;
-	background-color: rgb(255, 255, 255);
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
-  }
-
-  .panel-body {
-	padding: 45px 80px 0;
+.panel-body {
+	/* padding: 45px 80px 0; */
 	flex: 1;
   }
    
@@ -475,18 +489,16 @@ html,
 		justify-content: space-between;
 		align-items: center;
 	}
- .invoice-box{
-   display: none;
- }
 
 
-  /* *************************************************************************************Receipt Form Style********************************************************************************* */
+
+  /* ********* Receipt Form Style ********** */
    .invoice-box {
-    max-width: 800px;
+    /* max-width: 800px; */
     margin: auto;
     padding: 30px;
     border: 1px solid #eee;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, .15); */
     font-size: 16px;
     line-height: 24px;
     font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
@@ -559,9 +571,7 @@ html,
     }
 }
 
-.checkout-panel{
-display: none;
-}
+
 /** RTL **/
 .rtl {
     direction: rtl;
