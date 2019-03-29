@@ -17,12 +17,28 @@ $(() => {
   /* open modal if cart clicked on 
   This will need to open to just the items in the cart
   Maybe even say "nothing in the cart" when no items are in there*/
-  
+
   let cartArray = [];
+  function updateCartCount (){
+    let cartContentsCount = cartArray.length;
+    // let cartContentsCount = 3;
+    $('#show-number-cart-items').text(cartContentsCount);
+    $('#show-number-cart-items-main').text(cartContentsCount);
+  }
+
   $('#open-cart-button').on('click', () => {
+    // let cartContentsCount = cartArray.length;
+    // // let cartContentsCount = 3;
+    // $('#show-number-cart-items').text(cartContentsCount);
+    // $('#show-number-cart-items-main').text(cartContentsCount);
     $('#information').empty();
     $('#information').append(cartArray);
+    //for each item in the cart array use the for of loop
+    //in the loop, append the name and price to #information
+    //you will replace line 35
     $('#modal-container').show();
+    updateCartCount();
+    console.log(cartArray);
   });
 
   //This is to set up the classes
@@ -98,8 +114,8 @@ $(() => {
 
   /* this sets up listeners for when the user clicks on services */
   let services = $('#services').children();
-  console.log({services});
-  console.log(`${services}`);
+  // console.log({ services });
+  console.log(services);
   let serviceId;
 
   //for all these html elements when they get clicked on do the following 
@@ -108,7 +124,7 @@ $(() => {
     // Loop through array to find the object you want
     // Pull out that object's info!
 
-    console.log("The event target's text:", $(event.target).text());
+    // console.log("The event target's text:", $(event.target).text());
     let serviceTitle = $(event.target).text();
 
     const data = servicesList[serviceTitle];
@@ -135,12 +151,13 @@ $(() => {
 
       $('#information').append(`${info.description}`);
 
-      $(`#information`).append(`<br><br><button class="button-next" id="${info.name}"> Add to Cart </button>`);     
-     
-      $(`#${info.name}`).on('click', function() {
+      $(`#information`).append(`<br><br><button class="button-next" id="${info.name}"> Add to Cart </button>`);
+
+      $(`#${info.name}`).on('click', function () {
         console.log(`${info.name}`);
-        cartArray.push(info.name);
-        cartArray.push(info.price);
+        cartArray.push({name: info.name, price: info.price});
+        // cartArray.push(info.price);
+        updateCartCount();
       })
     }
 
@@ -151,12 +168,12 @@ $(() => {
     const recieptArray = [];
 
 
-  /* test stuff for the steps in the process... this can be moved safely with a copy and paste */
+    /* test stuff for the steps in the process... this can be moved safely with a copy and paste */
 
-  /* this will eventually help with making the template for the receipt page */
+    /* this will eventually help with making the template for the receipt page */
 
-  let receiptHTML = 
-  `<div class="invoice-box">
+    let receiptHTML =
+      `<div class="invoice-box">
   <table cellpadding="0" cellspacing="0">
       <tr class="top">
           <td colspan="2">
@@ -255,7 +272,7 @@ $(() => {
   </table>
 </div>`;
 
-    
+
     /* this will eventually help with making the template for the checkout page */
 
     let checkoutHTML = `
@@ -312,35 +329,37 @@ $(() => {
     </div>
   </div>`;
 
-  /* simple function to count sales tax, used on receipt */
+    /* simple function to count sales tax, used on receipt */
 
-  let caculateSalesTax = (totalBeforeTaxes) => {
-    let totalAfterTaxes = totalBeforeTaxes * 1.06;
-    return totalAfterTaxes;
-  }
+    let caculateSalesTax = (totalBeforeTaxes) => {
+      let totalAfterTaxes = totalBeforeTaxes * 1.06;
+      return totalAfterTaxes;
+    }
 
-  
-  let paymentProcessing = (checkoutHTML) => {
-    console.log('call to the payment processing function');
-    // console.log(`checkout html in payment processor: ${checkoutHTML}`);
-    $('#modal-html-holder').html(checkoutHTML);
-    
-    //console.log(checkoutHTML);
-  }
 
-  // let testOfPayment = paymentProcessing(checkoutHTML);
-  // console.log(testOfPayment);
+    let paymentProcessing = (checkoutHTML) => {
+      console.log('call to the payment processing function');
+      // console.log(`checkout html in payment processor: ${checkoutHTML}`);
+      $('#modal-html-holder').html(checkoutHTML);
 
-  // console.log(checkoutHTML);
+      //console.log(checkoutHTML);
+    }
 
-  /* test listener to insert Receipt HTML */
+    // let testOfPayment = paymentProcessing(checkoutHTML);
+    // console.log(testOfPayment);
+
+    // console.log(checkoutHTML);
+
+    /* test listener to insert Receipt HTML */
     $('#show-receipt').on('click', () => {
+      $('#information').empty();
       $('#modal-html-holder').html(receiptHTML);
       $('#modal-services-menu').hide();
     });
 
-  /* test listener to insert checkout HTML */
-    $('#show-checkout').on('click', {msg: checkoutHTML}, (event) => {
+    /* test listener to insert checkout HTML */
+    $('#show-checkout').on('click', { msg: checkoutHTML }, (event) => {
+      $('#information').empty();
       // console.log(`this is event: ${event}`);
       // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
       $('#modal-html-holder').text('');
@@ -348,22 +367,22 @@ $(() => {
       $('#modal-services-menu').hide();
     });
 
-  /* test listener to insert checkout HTML */
+    /* test listener to insert checkout HTML */
     $('#show-cart').on('click', (event) => {
       // console.log(`this is event: ${event}`);
       // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
-      
+
       // static cart items test //
 
-      let cartContentsCount = 3;
-      $('#show-number-cart-items').text(cartContentsCount);
-      $('#show-number-cart-items-main').text(cartContentsCount);
+      // let cartContentsCount = 3;
+      // $('#show-number-cart-items').text(cartContentsCount);
+      // $('#show-number-cart-items-main').text(cartContentsCount);
 
       // show place holder text //
       $('#modal-html-holder').text('');
       $('#modal-html-holder').html('<p>this is the review cart placeholder</p>');
       $('#modal-services-menu').hide();
     });
-  
+
   });
 });
