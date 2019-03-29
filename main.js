@@ -74,7 +74,7 @@ $(() => {
         $('#html-table-start').after(htmlItemDisplay);
       }
       
-      subTotalDisplay = subTotalDisplay + cartArray[key].price;  
+      // subTotalDisplay = subTotalDisplay + cartArray[key].price;  
     }
     
     console.log(`sub total: ${subTotalDisplay}`);
@@ -117,12 +117,12 @@ $(() => {
   $('#open-cart-button, #cart-contents').on('click', () => {
     $('#checkout-flow-title').text('Your Cart');
     $('#information').empty();
-    $('#information').text(cartArray);
+    //$('#information').text(cartArray);
     //for each item in the cart array use the for of loop
     //in the loop, append the name and price to #information
     //you will replace line 35
     $('#modal-container').show();
-    updateCartCount();
+    // updateCartCount();
     // console.log(`This is cart array in open cart function: ${cartArray}`);
     if (cartArray.length > 0) {
       showCartContents(cartArray);
@@ -254,6 +254,7 @@ $(() => {
         console.log(`${info.name}`);
         cartArray.push({name: info.name, price: info.price});
         // cartArray.push(info.price);
+        subTotalDisplay += info.price;
         updateCartCount();
       })
     }
@@ -422,7 +423,7 @@ $(() => {
    
     <div class="panel-footer">
       <button class="btn back-btn">Back</button>
-      <button class="btn next-btn">Next Step</button>
+      <button class="btn next-btn" id="finish-transaction">Next Step</button>
     </div>
   </div>`;
 
@@ -434,12 +435,13 @@ $(() => {
     }
 
 
-    let paymentProcessing = (checkoutHTML) => {
+    let paymentProcessing = (checkoutHTML, subTotalDisplay) => {
       console.log('call to the payment processing function');
       // console.log(`checkout html in payment processor: ${checkoutHTML}`);
       $('#modal-html-holder').html(checkoutHTML);
 
       //console.log(checkoutHTML);
+      console.log(`sub-total in payment: ${subTotalDisplay}`);
     }
 
     // let testOfPayment = paymentProcessing(checkoutHTML);
@@ -460,8 +462,14 @@ $(() => {
       // console.log(`this is event: ${event}`);
       // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
       $('#modal-html-holder').text('');
-      paymentProcessing(checkoutHTML);
+      paymentProcessing(checkoutHTML, subTotalDisplay);
       $('#modal-services-menu').hide();
+    });
+
+    $('#finish-transaction').on('click', () => {
+      console.log(`finish transaction clicked on`);
+      $('#modal-html-holder').text('');
+      $('#modal-html-holder').text('your transaction is done!');
     });
 
     // /* test listener to insert checkout HTML */
