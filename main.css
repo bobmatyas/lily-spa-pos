@@ -276,15 +276,13 @@ body {
     justify-content: space-around;
   }
 
-  .about-container p {
-    max-width: 600px;
 
     .about-container p {
       max-width: 1200px;
       margin: 0 auto;
     }
 
-  }
+  
 
   /* MODAL CONTAINER FOR CART STUFF */
 
@@ -616,3 +614,4 @@ body {
   .rtl table tr td:nth-child(2) {
     text-align: left;
   }
+}
