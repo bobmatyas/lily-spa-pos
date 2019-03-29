@@ -248,8 +248,13 @@ body {
 
   /* about section */
 
-  .about-container p { 
-    max-width: 900px;
+  .about-container  { 
+    display: flex;
+    max-width: 100%;
+    justify-content: space-around;
+  }
+  .about-container p{
+    max-width: 600px;
   }
 
 }
@@ -294,10 +299,21 @@ body {
 }
 
 .list-inline-footer-list{
-display: inline;
+display: flex;
 line-height: 41px;
 margin: 0 auto;
+color: white;
 }
+
+.list-inline-footer-list{
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 20px;
+  width: 800px;
+  
+}
+
  
 /* *****************************************************************************Check-out from style***********************************************************************************************
 */
