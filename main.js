@@ -17,12 +17,28 @@ $(() => {
   /* open modal if cart clicked on 
   This will need to open to just the items in the cart
   Maybe even say "nothing in the cart" when no items are in there*/
-  
+
   let cartArray = [];
+  function updateCartCount (){
+    let cartContentsCount = cartArray.length;
+    // let cartContentsCount = 3;
+    $('#show-number-cart-items').text(cartContentsCount);
+    $('#show-number-cart-items-main').text(cartContentsCount);
+  }
+
   $('#open-cart-button').on('click', () => {
+    // let cartContentsCount = cartArray.length;
+    // // let cartContentsCount = 3;
+    // $('#show-number-cart-items').text(cartContentsCount);
+    // $('#show-number-cart-items-main').text(cartContentsCount);
     $('#information').empty();
     $(`#information`).append(cartArray);
+    //for each item in the cart array use the for of loop
+    //in the loop, append the name and price to #information
+    //you will replace line 35
     $('#modal-container').show();
+    updateCartCount();
+    console.log(cartArray);
   });
 
   //This is to set up the classes
@@ -98,8 +114,8 @@ $(() => {
 
   /* this sets up listeners for when the user clicks on services */
   let services = $('#services').children();
-  console.log({services});
-  console.log(`${services}`);
+  // console.log({ services });
+  console.log(services);
   let serviceId;
 
   //for all these html elements when they get clicked on do the following 
@@ -108,7 +124,7 @@ $(() => {
     // Loop through array to find the object you want
     // Pull out that object's info!
 
-    console.log("The event target's text:", $(event.target).text());
+    // console.log("The event target's text:", $(event.target).text());
     let serviceTitle = $(event.target).text();
 
     const data = servicesList[serviceTitle];
@@ -119,18 +135,7 @@ $(() => {
     $('#information').empty();
 
     // Populate the information box
-
-    //This is the title of the category
-    $('#information')
-        .append(
-          $(`<h2/>`)
-            .html(`${serviceTitle}`)
-        );
-   
-    //this loops through the data and prints out 
-    //the info name, price, description and adds a button
     for (let info of data) {
-      
       $('#information')
         .append(
           $(`<h4/>`)
@@ -146,16 +151,238 @@ $(() => {
 
       $('#information').append(`${info.description}`);
 
-      $(`#information`).append(`<br><br><button class="button-next" id="${info.name}"> Add to Cart </button>`);     
-     
-      $(`#${info.name}`).on('click', function() {
+      $(`#information`).append(`<br><br><button class="button-next" id="${info.name}"> Add to Cart </button>`);
+
+      $(`#${info.name}`).on('click', function () {
         console.log(`${info.name}`);
-        cartArray.push(info.name);
-        cartArray.push(info.price);
+        cartArray.push({name: info.name, price: info.price});
+        // cartArray.push(info.price);
+        updateCartCount();
       })
     }
-    
+
+    // serviceId = `#${event.target.id}`;
     showModal(serviceId);
+
+    //This is the empty array for the reciept
+    const recieptArray = [];
+
+
+    /* test stuff for the steps in the process... this can be moved safely with a copy and paste */
+
+    /* this will eventually help with making the template for the receipt page */
+
+    let receiptHTML =
+      `<div class="invoice-box">
+  <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+          <td colspan="2">
+              <table>
+                  <tr>
+                      <td class="title">
+                      </td>
+                  </tr>
+              </table>
+          </td>
+      </tr>
+      
+      <tr class="information">
+          <td colspan="2">
+              <table>
+                  <tr>
+                      <td>
+                          Lily's Spa, LLC.<br>
+                          2900 Grandville<br>
+                          Grand Rapids, MI 49519
+                      </td>
+                  </tr>
+              </table>
+          </td>
+      </tr>
+      
+      <tr class="heading">
+          <td>
+              Payment Method
+          </td>
+          
+          <td>
+              Credit Card/ Debit Card
+          </td>
+      </tr>
+      <tr class="heading">
+          <td>
+              Item
+          </td>
+          
+          <td>
+              Price
+          </td>
+      </tr>
+      
+      <tr class="item">
+          <td>
+             Body Masage
+          </td>
+          
+          <td>
+              $300.00
+          </td>
+      </tr>
+      <tr class="item">
+          <td>
+              Manicure
+          </td>
+          
+          <td>
+              $75.00
+          </td>
+      </tr>
+      
+      <tr class="item last">
+          <td>
+              Pedicure
+          </td>
+          
+          <td>
+              $10.00
+          </td>
+      </tr>
+      
+      <tr class="total">
+          <td></td>
+          
+          <td>
+             Sub-Total: $385.00
+          </td>
+      </tr>
+    <tr class="total">
+      <td></td>
+      
+      <td>
+         Taxes: $23.10
+      </td>
+    </tr>
+    <tr class="total">
+    <td></td>
+    
+    <td>
+       Total: $408.10
+    </td>
+  </tr>
+  </table>
+</div>`;
+
+
+    /* this will eventually help with making the template for the checkout page */
+
+    let checkoutHTML = `
+    <div class="checkout-panel">
+    <div class="panel-body">
+      <h2 class="title">Checkout</h2>
+      <div class="payment-method">
+        <div class="method card">
+          <div class="card-logos">
+          </div>
+
+          <div class="Payment-method-two">
+              <label for="card" class="cash">
+              </div>
+          <div class="radio-input">
+            <input id="card" type="radio" name="payment">
+            Pay 385.00 with credit card
+          </div>
+          <div class="radio-input">
+          <input id="card" type="radio" name="payment">
+          Pay 385.00 with cash
+        </div>
+            </div>
+          </div>
+   
+      <div class="input-fields">
+        <div class="column-1">
+          <label for="cardholder">Cardholder's Name</label>
+          <input type="text" id="cardholder" />
+   
+          <div class="small-inputs">
+            <div>
+              <label for="date">Valid thru</label>
+              <input type="text" id="date" placeholder="MM / YY" />
+            </div>
+   
+            <div>
+              <label for="verification">CVV / CVC *</label>
+              <input type="password" id="verification"/>
+            </div>
+          </div>
+        </div>
+        <div class="column-2">
+          <label for="cardnumber">Card Number</label>
+          <input type="password" id="cardnumber"/>
+          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
+        </div>
+      </div>
+    </div>
+   
+    <div class="panel-footer">
+      <button class="btn back-btn">Back</button>
+      <button class="btn next-btn">Next Step</button>
+    </div>
+  </div>`;
+
+    /* simple function to count sales tax, used on receipt */
+
+    let caculateSalesTax = (totalBeforeTaxes) => {
+      let totalAfterTaxes = totalBeforeTaxes * 1.06;
+      return totalAfterTaxes;
+    }
+
+
+    let paymentProcessing = (checkoutHTML) => {
+      console.log('call to the payment processing function');
+      // console.log(`checkout html in payment processor: ${checkoutHTML}`);
+      $('#modal-html-holder').html(checkoutHTML);
+
+      //console.log(checkoutHTML);
+    }
+
+    // let testOfPayment = paymentProcessing(checkoutHTML);
+    // console.log(testOfPayment);
+
+    // console.log(checkoutHTML);
+
+    /* test listener to insert Receipt HTML */
+    $('#show-receipt').on('click', () => {
+      $('#information').empty();
+      $('#modal-html-holder').html(receiptHTML);
+      $('#modal-services-menu').hide();
+    });
+
+    /* test listener to insert checkout HTML */
+    $('#show-checkout').on('click', { msg: checkoutHTML }, (event) => {
+      $('#information').empty();
+      // console.log(`this is event: ${event}`);
+      // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
+      $('#modal-html-holder').text('');
+      paymentProcessing(checkoutHTML);
+      $('#modal-services-menu').hide();
+    });
+
+    /* test listener to insert checkout HTML */
+    $('#show-cart').on('click', (event) => {
+      // console.log(`this is event: ${event}`);
+      // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
+
+      // static cart items test //
+
+      // let cartContentsCount = 3;
+      // $('#show-number-cart-items').text(cartContentsCount);
+      // $('#show-number-cart-items-main').text(cartContentsCount);
+
+      // show place holder text //
+      $('#modal-html-holder').text('');
+      $('#modal-html-holder').html('<p>this is the review cart placeholder</p>');
+      $('#modal-services-menu').hide();
+    });
 
   });
 });
