@@ -44,22 +44,13 @@ $(() => {
     console.log(`SHOW CART CONTENTS CALLED SUCCESSFULLY`);
     console.log(`This is the cartArray in showCartContents: ${cartArray}`);
 
-    let htmlCartHeader = `
-    <div class="invoice-box">
-  <table cellpadding="0" cellspacing="0">    
-      <tr class="heading" id="html-table-start">
-          <td>
-              Item
-          </td>
-          
-          <td>
-              Price
-          </td>
+    let cartHtmlHeader = `<div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">    
+        <tr class="heading" id="html-table-start">
+          <td>Item</td><td>Price</td>
       </tr>`;
-    //$('#modal-html-holder').html(htmlCartHeader);
-
    
-    let cartHtmlContents = htmlCartHeader;
+    let cartHtmlContents = cartHtmlHeader;
 
     for (let key in cartArray) {
       let lastItem = parseInt(key) + 1;
@@ -67,24 +58,17 @@ $(() => {
         console.log('this is the last item');
         let htmlItemDisplay = `
         <tr class="item" id="last-item-in-table"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
-        //$('#html-table-start').after(htmlItemDisplay);
         cartHtmlContents = `${cartHtmlContents}${htmlItemDisplay}`;
       } else {
         let htmlItemDisplay = `
         <tr class="item"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
-        //$('#html-table-start').after(htmlItemDisplay);
         cartHtmlContents = `${cartHtmlContents}${htmlItemDisplay}`;
       }
       
-      // subTotalDisplay = subTotalDisplay + cartArray[key].price;  
     }
-    
-    console.log(`sub total: ${subTotalDisplay}`);
     
     // calculate taxes
     let taxes = subTotalDisplay * 1.06;
-    console.log(`total after taxes: ${taxes}`);
-
     let totalAfterTaxes = taxes + subTotalDisplay;
 
     /* fix the rounding */
@@ -92,32 +76,23 @@ $(() => {
     let totalRounded = totalAfterTaxes.toFixed(2);
 
 
-    let htmlCartFooter = `
-    <tr class="total">
-    <td></td>
-    
-    <td>
-       Sub-Total: $${subTotalDisplay}
-    </td>
-</tr>
-<tr class="total">
-<td></td>
+    let cartHtmlFooter = `
+      <tr class="total">
+        <td></td> 
+        <td>Sub-Total: $${subTotalDisplay}</td>
+      </tr>
+      <tr class="total">
+        <td></td>
+        <td>Taxes: $${taxes}</td>
+      </tr>
+      <tr class="total">
+        <td></td>
+        <td>Total: $${totalRounded}</td>
+      </tr>
+    </table>
+    </div>`;
 
-<td>
-   Taxes: $${taxes}
-</td>
-</tr>
-<tr class="total">
-<td></td>
-
-<td>
- Total: $${totalRounded}
-</td>
-</tr>
-</table>
-</div>`;
-
-    cartHtmlContents = `${cartHtmlContents}${htmlCartFooter}`;
+    cartHtmlContents = `${cartHtmlContents}${cartHtmlFooter}`;
     $('#modal-html-holder').html(cartHtmlContents);
   }
 
