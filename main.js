@@ -21,7 +21,7 @@ $(() => {
   let cartArray = [];
   $('#open-cart-button').on('click', () => {
     $('#information').empty();
-    $(`#information`).append(cartArray);
+    $('#information').append(cartArray);
     $('#modal-container').show();
   });
 
