@@ -22,6 +22,9 @@ $(() => {
   /* this array holds the contents of the cart */
   let cartArray = [];
 
+  /* this is holding the sub total */
+  let subTotalDisplay = 0;
+
   /* this function updates the cart contents on call */
 
   function updateCartCount () {
@@ -54,14 +57,27 @@ $(() => {
       </tr>`;
     $('#modal-html-holder').html(htmlCartHeader);
 
+   
+
+
     for (let key in cartArray) {
-      console.log(`Item in Cart: ${cartArray[key].name}`);
-      console.log(`Item Price: ${cartArray[key].price}`);
-      let htmlItemDisplay = `
-      <tr class="item"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
-      console.log(htmlItemDisplay);
-      $('#html-table-start').after(htmlItemDisplay);
+      let lastItem = parseInt(key) + 1;
+      if (lastItem === cartArray.length) {
+        console.log('this is the last item');
+        let htmlItemDisplay = `
+        <tr class="item" id="last-item-in-table"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
+        $('#html-table-start').after(htmlItemDisplay);
+      } else {
+        let htmlItemDisplay = `
+        <tr class="item"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
+        $('#html-table-start').after(htmlItemDisplay);
+      }
+      
+      subTotalDisplay = subTotalDisplay + cartArray[key].price;  
     }
+    
+    console.log(`sub total: ${subTotalDisplay}`);
+
     let htmlCartFooter = `
     <tr class="total">
     <td></td>
@@ -86,6 +102,7 @@ $(() => {
 </tr>
 </table>
 </div>`;
+
   }
 
 
