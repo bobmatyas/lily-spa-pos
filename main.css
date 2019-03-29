@@ -259,8 +259,15 @@ body {
 
   /* about section */
 
+  .about-container {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-around;
+  }
+
+
   .about-container p { 
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
@@ -332,10 +339,29 @@ body {
 
 /* FOOTER STYLES */
 
-.list-inline-footer-list{
-display: inline;
-line-height: 41px;
-margin: 0 auto;
+
+.footer-container{
+ 
+    display: flex;
+    line-height: 41px;
+   
+    color: white;
+  }
+
+  .list-inline-footer-list {
+    text-decoration: none;
+    font-size: 20px;
+    width: 900px;
+
+  }
+
+.list-inline-footer-list {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 20px;
+  width: 800px;
+
 }
  
 
