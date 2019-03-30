@@ -3,6 +3,7 @@
 $(() => {
 
   /* sticky menu on scroll */
+
   $(window).trigger('scroll');
   $(window).bind('scroll', function () {
     let pixels = 300; //number of pixels before modifying styles
@@ -17,13 +18,136 @@ $(() => {
   /* open modal if cart clicked on 
   This will need to open to just the items in the cart
   Maybe even say "nothing in the cart" when no items are in there*/
-  
+
+  /* this array holds the contents of the cart */
   let cartArray = [];
-  $('#open-cart-button').on('click', () => {
+
+  /* this is holding the sub total */
+  let subTotalDisplay = 0;
+
+  /* simple function to count sales tax, used in cart and on receipt */
+
+  const calculateSalesTax = (totalBeforeTaxes) => {
+    let totalAfterTaxes = totalBeforeTaxes * 1.06;
+    return totalAfterTaxes;      
+  }
+
+
+  /* this function updates the item count in the cart on call */
+
+  function updateCartCount () {
+    let cartContentsCount = cartArray.length;
+    // only display cart contents if an item has been purchased
+    if (cartContentsCount > 0) {
+      $('#cart-contents').show();
+      $('#show-number-cart-items').text(cartContentsCount);
+      $('#show-number-cart-items-main').text(cartContentsCount);
+    }
+  }
+
+
+  /* this function shows the contents of the cart */
+
+  let showCartContents = (cartArray) => {
+
+    /* this sets up a block of html to build the cart template */
+
+    let cartHtmlHeader = `<div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">    
+        <tr class="information">
+          <td colspan="2">
+            <table>
+                <tr id="cart-payment-info-box">
+                  <td>
+                      Lily's Spa, LLC.<br>
+                      2900 Grandville<br>
+                      Grand Rapids, MI 49519
+                  </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+       <tr class="heading" id="cart-payment-method-display">
+          <td>Payment Method</td>
+          <td>Credit Card/ Debit Card</td>
+       </tr>  
+       <tr class="heading" id="html-table-start">
+          <td>Item</td><td>Price</td>
+       </tr>`;
+   
+    let cartHtmlContents = cartHtmlHeader;
+    
+    /* this loops through the cart and adds to the html template */
+
+    for (let key in cartArray) {
+      let lastItem = parseInt(key) + 1;
+      if (lastItem === cartArray.length) {
+        let htmlItemDisplay = `
+        <tr class="item" id="last-item-in-table"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
+        cartHtmlContents = `${cartHtmlContents}${htmlItemDisplay}`;
+      } else {
+        let htmlItemDisplay = `
+        <tr class="item"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
+        cartHtmlContents = `${cartHtmlContents}${htmlItemDisplay}`;
+      }
+      
+    }
+    
+    // calculate taxes
+      let totalAfterTaxes = calculateSalesTax(subTotalDisplay);
+      let taxes = (subTotalDisplay * .06).toFixed(2);
+
+      /* fix the rounding */
+
+     let totalRounded = totalAfterTaxes.toFixed(2);
+
+    // finish building the html template block 
+
+    let cartHtmlFooter = `
+      <tr class="total">
+        <td></td> 
+        <td>Sub-Total: $${subTotalDisplay}</td>
+      </tr>
+      <tr class="total">
+        <td></td>
+        <td>Taxes: $${taxes}</td>
+      </tr>
+      <tr class="total">
+        <td></td>
+        <td>Total: $${totalRounded}</td>
+      </tr>
+    </table>
+    </div>`;
+
+    cartHtmlContents = `${cartHtmlContents}${cartHtmlFooter}`;
+    
+    // and finally, display the html for the cart contents 
+
+    $('#modal-html-holder').html(cartHtmlContents);
+  }
+
+
+
+  /* this is listening to open the cart when clicked on  */
+
+  $('#open-cart-button, #cart-contents').on('click', () => {
+    $('#checkout-flow-title').text('Your Cart');
     $('#information').empty();
-    $(`#information`).append(cartArray);
+    //$('#information').text(cartArray);
+    //for each item in the cart array use the for of loop
+    //in the loop, append the name and price to #information
+    //you will replace line 35
     $('#modal-container').show();
+    // updateCartCount();
+    // console.log(`This is cart array in open cart function: ${cartArray}`);
+    if (cartArray.length > 0) {
+      $('#cart-contents').show();
+      showCartContents(cartArray);
+    } else {
+      $('#information').addClass('empty-cart-warning').text('Your cart is currently empty.');
+    }
   });
+
 
   //This is to set up the classes
   class category {
@@ -96,27 +220,48 @@ $(() => {
     $('#modal-container').hide();
   });
 
+
   /* this sets up listeners for when the user clicks on services */
   let services = $('#services').children();
-  console.log({services});
-  console.log(`${services}`);
+  // console.log({ services });
+  console.log(`this is what services is: ${services}`);
   let serviceId;
 
+  
   //for all these html elements when they get clicked on do the following 
+
   $(services).on('click', (event) => {
     // Make an array of all the cool objets you've set up for each service type
     // Loop through array to find the object you want
     // Pull out that object's info!
 
+    $('#checkout-flow-title').text('Book A Service');
+
     console.log("The event target's text:", $(event.target).text());
+    console.log("The event target's id:", $(event.target).text());
     let serviceTitle = $(event.target).text();
 
+<<<<<<< HEAD
+    console.log(`this is the service title clicked on: ${serviceTitle}`);
+
+    console.log(`services title object: ${servicesList[serviceTitle]}`);
     const data = servicesList[serviceTitle];
 
-    console.log("service data:", data, serviceTitle);
+    console.log("service data:", data);
 
     // Clear the information box
-    $('#information').empty();
+    $('#information').removeClass().empty();
+=======
+    // Loop goes here
+    for (let service of servicesArray) {
+      console.log('Service name:', service.name);
+      console.log('Service data:', service.data);
+
+      for (let data of service.data) {
+        console.log('service price:', data.price);
+      }
+    }
+>>>>>>> master
 
     // Populate the information box
     for (let info of data) {
@@ -135,235 +280,366 @@ $(() => {
 
       $('#information').append(`${info.description}`);
 
-      $(`#information`).append(`<br><br><button class="button-next" id="${info.name}"> Add to Cart </button>`);     
-     
-      $(`#${info.name}`).on('click', function() {
-        console.log(`${info.name}`);
-        cartArray.push(info.name);
-        cartArray.push(info.price);
-      })
-    }
+      $(`#information`).append(`<br><br><button class="button-next" id="${info.name}"> Add to Cart </button>`);
 
+      $(`#${info.name}`).on('click', () => {
+        cartArray.push({name: info.name, price: info.price});
+        // cartArray.push(info.price);
+        subTotalDisplay += info.price;
+        updateCartCount();
+      });
+    }
+    
+ 
     // serviceId = `#${event.target.id}`;
     showModal(serviceId);
 
     //This is the empty array for the reciept
     const recieptArray = [];
 
+    let paymentProcessing = (subTotalDisplay) => {
 
-  /* test stuff for the steps in the process... this can be moved safely with a copy and paste */
+      $('#checkout-flow-title').text('Payment Information');
 
-  /* this will eventually help with making the template for the receipt page */
+      let totalAfterTaxes = calculateSalesTax(subTotalDisplay);
 
-  let receiptHTML = 
-  `<div class="invoice-box">
-  <table cellpadding="0" cellspacing="0">
-      <tr class="top">
-          <td colspan="2">
-              <table>
-                  <tr>
-                      <td class="title">
-                      </td>
-                  </tr>
-              </table>
-          </td>
-      </tr>
+      /* calculates the current year and adding 5 years to setup a select box for cc expiration */
       
-      <tr class="information">
-          <td colspan="2">
-              <table>
-                  <tr>
-                      <td>
-                          Lily's Spa, LLC.<br>
-                          2900 Grandville<br>
-                          Grand Rapids, MI 49519
-                      </td>
-                  </tr>
-              </table>
-          </td>
-      </tr>
-      
-      <tr class="heading">
-          <td>
-              Payment Method
-          </td>
-          
-          <td>
-              Credit Card/ Debit Card
-          </td>
-      </tr>
-      <tr class="heading">
-          <td>
-              Item
-          </td>
-          
-          <td>
-              Price
-          </td>
-      </tr>
-      
-      <tr class="item">
-          <td>
-             Body Masage
-          </td>
-          
-          <td>
-              $300.00
-          </td>
-      </tr>
-      <tr class="item">
-          <td>
-              Manicure
-          </td>
-          
-          <td>
-              $75.00
-          </td>
-      </tr>
-      
-      <tr class="item last">
-          <td>
-              Pedicure
-          </td>
-          
-          <td>
-              $10.00
-          </td>
-      </tr>
-      
-      <tr class="total">
-          <td></td>
-          
-          <td>
-             Sub-Total: $385.00
-          </td>
-      </tr>
-    <tr class="total">
-      <td></td>
-      
-      <td>
-         Taxes: $23.10
-      </td>
-    </tr>
-    <tr class="total">
-    <td></td>
-    
-    <td>
-       Total: $408.10
-    </td>
-  </tr>
-  </table>
-</div>`;
+      let currentDate = new Date();
+      let startYear = currentDate.getFullYear();
+      let yearsSelectBox = `<select id="credit-card-year"><option>${startYear}</option>`;
 
-    
-    /* this will eventually help with making the template for the checkout page */
+      for (let i = 0; i <= 5; i++) {
+        startYear += 1;
+        yearsSelectBox = `${yearsSelectBox}<option>${startYear}</option>`;
+      }
 
-    let checkoutHTML = `
-    <div class="checkout-panel">
-    <div class="panel-body">
-      <h2 class="title">Checkout</h2>
-      <div class="payment-method">
-        <div class="method card">
-          <div class="card-logos">
+      yearsSelectBox = `${yearsSelectBox}</select>`;
+
+      /* sets up the cc month expiration selection */
+
+      let monthsSelectBox = `<select id="credit-card-month">`;
+
+      for (let i = 1; i <= 12; i++) {
+        let paddedMonth = i;
+        if (i < 10) {
+          paddedMonth = `0${i}`;
+        }
+        monthsSelectBox = `${monthsSelectBox}<option>${paddedMonth}</option>`;
+      }
+
+      monthsSelectBox = `${monthsSelectBox}</select>`;
+
+
+      /* creates the checkout html template */
+
+      let checkoutHTML = `
+      <div class="checkout-panel">
+      <div class="panel-body">
+        <h2 class="title">Checkout</h2>
+        <div class="payment-method">
+          <div class="method card">
+            <div class="card-logos">
+            </div>
+
+            <div class="radio-input" id="pay-with-card">
+              Pay ${totalAfterTaxes} with credit card
+            </div>
+            <div class="radio-input" id="pay-with-cash">
+              Pay ${totalAfterTaxes} with cash
+            </div>
           </div>
-
-          <div class="Payment-method-two">
-              <label for="card" class="cash">
+        </div>
+        <div class="input-fields" id="pay-with-card-input-fields">
+          <div class="column-1">
+            <label for="cardholder">Cardholder's Name</label>
+            <input type="text" id="cardholder" />
+     
+            <div class="small-inputs">
+              <div>
+                <label for="date">Valid thru (MM / YY)</label>
+                  ${monthsSelectBox}
+                  ${yearsSelectBox}
               </div>
-          <div class="radio-input">
-            <input id="card" type="radio" name="payment">
-            Pay 385.00 with credit card
-          </div>
-          <div class="radio-input">
-          <input id="card" type="radio" name="payment">
-          Pay 385.00 with cash
-        </div>
+     
+              <div>
+                <label for="verification">CVV / CVC *</label>
+                <input type="number" min="3" max="3" id="verification"/>
+              </div>
             </div>
           </div>
-   
-      <div class="input-fields">
-        <div class="column-1">
-          <label for="cardholder">Cardholder's Name</label>
-          <input type="text" id="cardholder" />
-   
-          <div class="small-inputs">
-            <div>
-              <label for="date">Valid thru</label>
-              <input type="text" id="date" placeholder="MM / YY" />
-            </div>
-   
-            <div>
-              <label for="verification">CVV / CVC *</label>
-              <input type="password" id="verification"/>
-            </div>
+          <div class="column-2">
+            <label for="cardnumber">Card Number</label>
+            <input type="password" id="cardnumber" max="16"/>
+            <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
           </div>
-        </div>
-        <div class="column-2">
-          <label for="cardnumber">Card Number</label>
-          <input type="password" id="cardnumber"/>
-          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
         </div>
       </div>
-    </div>
-   
-    <div class="panel-footer">
-      <button class="btn back-btn">Back</button>
-      <button class="btn next-btn">Next Step</button>
-    </div>
-  </div>`;
-
-  /* simple function to count sales tax, used on receipt */
-
-  let caculateSalesTax = (totalBeforeTaxes) => {
-    let totalAfterTaxes = totalBeforeTaxes * 1.06;
-    return totalAfterTaxes;
-  }
-
-  
-  let paymentProcessing = (checkoutHTML) => {
-    console.log('call to the payment processing function');
-    // console.log(`checkout html in payment processor: ${checkoutHTML}`);
-    $('#modal-html-holder').html(checkoutHTML);
-    
-    //console.log(checkoutHTML);
-  }
-
-  // let testOfPayment = paymentProcessing(checkoutHTML);
-  // console.log(testOfPayment);
-
-  // console.log(checkoutHTML);
-
-  /* test listener to insert Receipt HTML */
-    $('#show-receipt').on('click', () => {
-      $('#modal-html-holder').html(receiptHTML);
-      $('#modal-services-menu').hide();
-    });
-
-  /* test listener to insert checkout HTML */
-    $('#show-checkout').on('click', {msg: checkoutHTML}, (event) => {
-      // console.log(`this is event: ${event}`);
-      // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
-      $('#modal-html-holder').text('');
-      paymentProcessing(checkoutHTML);
-      $('#modal-services-menu').hide();
-    });
-
-  /* test listener to insert checkout HTML */
-    $('#show-cart').on('click', (event) => {
-      // console.log(`this is event: ${event}`);
-      // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
+      <div class="input-fields" id="pay-with-cash-input-fields">
+        <p>pay with cash area</p>
+        <div id="pay-with-cash-calculator">
+          <div>
+            <input type="number" id="pay-with-cash-how-much-paying" />
+          </div>
+          <div id="pay-with-cash-calculator-change">
+            <p id="how-much-paying">this is where the change will go.</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button class="btn back-btn">Back</button>
+        <button class="btn next-btn" id="finish-transaction">Next Step</button>
+      </div>
+    </div>`;
       
-      // static cart items test //
+    
+    console.log('call to the payment processing function');
+    
+    //console.log(`checkout html in payment processor: ${checkoutHTML}`);
+      $('#modal-html-holder').html(checkoutHTML);
 
-      let cartContentsCount = 3;
-      $('#show-number-cart-items').text(cartContentsCount);
-      $('#show-number-cart-items-main').text(cartContentsCount);
 
-      // show place holder text //
-      $('#modal-html-holder').text('');
-      $('#modal-html-holder').html('<p>this is the review cart placeholder</p>');
+      $('#pay-with-card').on('click', () => {
+        $('#pay-with-cash-input-fields').hide();
+        $('#pay-with-card-input-fields').show();
+      });
+
+      $('#pay-with-cash').on('click', () => {
+        $('#pay-with-card-input-fields').hide();
+        $('#pay-with-cash-input-fields').show();
+      });
+
+      $("#pay-with-cash-how-much-paying").change( { msg: totalAfterTaxes }, (event) => {
+
+        // change will listen to box, 
+        // see if payment is sufficient
+        // give change or say isn't sufficient
+
+        console.log(`taxes in cash payment: ${totalAfterTaxes}`);
+        let contentToInsert = $('#pay-with-cash-how-much-paying').val();
+        
+        // add decimals to total
+        
+        let decimalTotal = totalAfterTaxes.toFixed(2);
+        console.log(`taxes w/decimal: ${decimalTotal}`);
+
+
+        if (contentToInsert == totalAfterTaxes) {
+          $('#how-much-paying').text(`Thank you for your anticipated payment of ${contentToInsert}. Please proceed to the receipt page.`);
+        } else if (contentToInsert <= totalAfterTaxes) {
+          $('#how-much-paying').text('Please enter enough to pay your bill.');
+        } else if (contentToInsert > totalAfterTaxes) {
+          $('#how-much-paying').text(`Your payment of ${contentToInsert} is an over payment.`);
+          let changeDue = contentToInsert - decimalTotal;
+          console.log(`change due: ${changeDue}`);
+          calculateChangeDue(contentToInsert, changeDue, decimalTotal);
+        }
+       });
+
+    }
+
+
+
+    /* test listener to insert Receipt HTML */
+    $('#show-receipt').on('click', () => {
+      $('#information').empty();
+      $('#checkout-flow-title').text('Your Receipt');
+      $('#cart-contents').hide();
+      //$('#modal-html-holder').html(receiptHTML);
+      showCartContents(cartArray);
+      $('#cart-payment-info-box, #cart-payment-method-display').show();
       $('#modal-services-menu').hide();
     });
+
+    /* test listener to insert checkout HTML */
+    // $('#show-checkout').on('click', { msg: checkoutHTML }, (event) => {
+    $('#show-checkout').on('click', (event) => {
+      $('#information').empty();
+      // console.log(`this is event: ${event}`);
+      // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
+      $('#modal-html-holder').text('');
+      paymentProcessing(subTotalDisplay);
+      $('#modal-services-menu').hide();
+    });
+
+    $('#finish-transaction').on('click', () => {
+      console.log(`finish transaction clicked on`);
+      $('#modal-html-holder').text('');
+      $('#modal-html-holder').text('your transaction is done!');
+    });
+
+
+    /* this is the calculator for cash back 
+    it calculates both the bills and the coins */
+
+    let calculateChangeDue = (amountDue, changeDue, amountTendered) => {
+      
+      // console.log(`amount due in change function: ${amountTendered}`);
+      // console.log(`decimal total in change function: ${amountTendered}`);
+      // console.log(`change due in change function: ${changeDue}`);
+      
+      let roundedChangeAmount = roundTheNumbers(changeDue, 2);
+
+      // console.log(`rounded change to run calculations: ${roundedChangeAmount}`);
+
+      //split number to calculate change
+      let integerPart = parseInt(roundedChangeAmount);
+      let decimalPart = roundTheNumbers((roundedChangeAmount - integerPart), 2);
+
+      let dollarOverPayment = integerPart;
+
+      let twentys = 0;
+      let tens = 0;
+      let fives = 0;
+      let singles = 0;
+
+      if (dollarOverPayment >= 1) {
+        
+        // count twenty dollar bills back        
+        if ( (dollarOverPayment/20) === 1) {
+          twentys = 1;
+          dollarOverPayment = dollarOverPayment - 20;
+        } else if ( (dollarOverPayment % 20) === 0) {
+          let getTwentyCount = dollarOverPayment / 20;
+          twentys = getTwentyCount;
+          dollarOverPayment -= (getTwentyCount * 20);
+        } else if ( (dollarOverPayment / 20) > 1 ) {
+          let divisionResult = Math.floor(dollarOverPayment/20);
+          twentys = divisionResult;
+          dollarOverPayment = dollarOverPayment - (divisionResult * 20);
+        }
+      
+        // count ten dollar bills back        
+        if ( (dollarOverPayment/10) === 1) {
+          tens = 1;
+          dollarOverPayment = dollarOverPayment - 10;
+        } else if ( (dollarOverPayment % 10) === 0) {
+          let getTensCount = dollarOverPayment / 10;
+          tens = getTensCount;
+          dollarOverPayment -= (getTensCount * 10);
+        } else if ( (dollarOverPayment / 10) > 1 ) {
+          let divisionResult = Math.floor(dollarOverPayment/10);
+          tens = divisionResult;
+          dollarOverPayment = dollarOverPayment - (divisionResult * 10);
+        }
+      
+        // count five dollar bills back        
+        if ( (dollarOverPayment/5) === 1) {
+          fives = 1;
+          dollarOverPayment = dollarOverPayment - 5;
+        } else if ( (dollarOverPayment % 5) === 0) {
+          let getFivesCount = dollarOverPayment / 5;
+          fives = getFivesCount;
+          dollarOverPayment -= (getFivesCount * 5);
+        } else if ( (dollarOverPayment / 5) > 1 ) {
+          let divisionResult = Math.floor(dollarOverPayment/5);
+          fives = divisionResult;
+          dollarOverPayment = dollarOverPayment - (divisionResult * 5);
+        }
+
+        //remainder is all dollars
+
+        singles = dollarOverPayment;   
+
+      }
+
+      console.log(`twentys back: ${twentys}`);
+      console.log(`tens back: ${tens}`);
+      console.log(`fives back: ${fives}`);
+      console.log(`dollars back: ${singles}`);
+
+      // console.log(`dollar amount: ${integerPart}`);
+      // console.log(`decimal amount: ${decimalPart}`);
+
+      //convert to 100 to make math easier
+
+      let decimalBase10 = roundTheNumbers((decimalPart * 100), 2);
+
+      console.log(`decimal at 100: ${decimalBase10}`);
+
+      let quarters = 0;
+      let dimes = 0;
+      let nickels = 0;
+      let pennys = 0;
   
+
+      //check if change is due 
+      
+     let overPayment = decimalBase10;
+
+     if ( (overPayment/25) === 1) {
+        quarters = 1;
+        overPayment = overPayment - 25;
+      } else if ( (overPayment % 25) === 0) {
+        let getQuarterCount = overPayment / 25;
+        quarters = getQuarterCount;
+        overPayment -= (getQuarterCount * 25);
+      } else if ( (overPayment / 25) > 1 ) {
+        let divisionResult = Math.floor(overPayment/25);
+        quarters = divisionResult;
+        overPayment = overPayment - (divisionResult * 25);
+      }
+    
+      //count dimes
+
+      if ( (overPayment/10) === 1) {
+        dimes = 1;
+        overPayment -= 10;
+      } else if ( (overPayment % 10) === 0) {
+        let getDimeCount = overPayment / 10;
+        dimes = getDimeCount;
+        overPayment -= (getDimeCount * 10);
+      } else if ( (overPayment / 10) > 1 ) {
+        let divisionResult = Math.floor(overPayment/10);
+        dimes = divisionResult;
+        overPayment -= (divisionResult * 10);
+      } 
+    
+      //count nickels
+    
+      if ( (overPayment/5) === 1) {
+        nickels = 1;
+        overPayment -= 5;
+      } else if ( (overPayment % 5) === 0) {
+        let getNickelCount = overPayment / 5;
+        console.log(getNickelCount);
+        nickels = getNickelCount;
+        overPayment -= (getNickelCount * 5);
+      } else if ( (overPayment / 5) > 1 ) {
+        let divisionResult = Math.floor(overPayment/5);
+        nickels = divisionResult;
+        overPayment -= (divisionResult * 5);
+      } 
+    
+      // remainder is all pennys  
+      pennys = overPayment;  
+   
+  
+    console.log(`Quarters: ${quarters}`);
+    console.log(`Dimes: ${dimes}`);
+    console.log(`Nickels: ${nickels}`);
+    console.log(`Pennys: ${pennys}`);
+  
+    return {
+      twentys: twentys,
+      tens: tens,
+      fives: fives,
+      dollars: singles,
+      quarters: quarters,
+      dimes: dimes,
+      nickels: nickels,
+      pennys: pennys
+    }
+  }
+
+
+  /* generic rounding function */
+
+  let roundTheNumbers = (value, decimals) => {
+    let roundedNumber = Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    console.log(`rounded number: ${roundedNumber}`);
+    return roundedNumber;
+  }
+
   });
 });

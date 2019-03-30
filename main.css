@@ -192,6 +192,9 @@ body {
   color: #282660;
 }
 
+#cart-contents {
+  display: none;
+}
 
 
 /* START DESKTOP STYLES */
@@ -269,7 +272,9 @@ body {
   .about-container p { 
     max-width: 900px;
     margin: 0 auto;
+    padding: 0 50px;
   }
+
 
 }
 
@@ -298,6 +303,11 @@ body {
 
 .modal-inner-content-container {
   margin: 25px;
+}
+
+.modal-controls-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .modal-header {
@@ -335,8 +345,27 @@ body {
   margin: 25px 0;
 }
 
+#cart-payment-info-box, #cart-payment-method-display {
+  display: none;
+}
+
+.empty-cart-warning {
+  border: 1px solid yellow;
+  background-color: lightgoldenrodyellow;
+  padding: 50px;
+  text-align: center;
+  font-size: 1.2rem;
+}
 
 
+#pay-with-card-input-fields, #pay-with-cash-input-fields {
+  display: none;
+}
+
+#pay-with-cash-calculator {
+  display: flex;
+  justify-content: space-between;
+}
 /* FOOTER STYLES */
 
 
@@ -422,7 +451,8 @@ body {
 
   .input-fields {
 	display: flex;
-	justify-content: space-between;
+  justify-content: space-between;
+  flex-direction: column;
   }
    
   .input-fields label {
@@ -441,11 +471,13 @@ body {
   }
    
   div[class*='column'] {
-	width: 382px;
+	/* width: 382px; */
   }
    
   input[type='text'],
-  input[type='password'] {
+  input[type='password'], 
+  input[type='number'],
+  select {
 	font-size: 16px;
 	width: 100%;
 	height: 50px;
@@ -458,7 +490,9 @@ body {
   }
    
   input[type='text']:focus,
-  input[type='password']:focus {
+  input[type='password']:focus, 
+  input[type='number']:focus,
+  select:focus {
 	border-color: rgb(119, 219, 119);
   }
 
@@ -469,6 +503,9 @@ body {
 	justify-content: space-between;
   }
    
+  .small-inputs select {
+    width: 25%;
+}
   .small-inputs div {
 	width: 182px;
   }
