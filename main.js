@@ -356,6 +356,14 @@ $(() => {
       </div>
       <div class="input-fields" id="pay-with-cash-input-fields">
         <p>pay with cash area</p>
+        <div id="pay-with-cash-calculator">
+          <div>
+            <input type="number" id="pay-with-cash-how-much-paying" />
+          </div>
+          <div id="pay-with-cash-calculator-change">
+            <p id="how-much-paying">this is where the change will go.</p>
+          </div>
+        </div>
       </div>
       <div class="panel-footer">
         <button class="btn back-btn">Back</button>
@@ -379,8 +387,21 @@ $(() => {
         $('#pay-with-cash-input-fields').show();
       });
 
+      $("#pay-with-cash-how-much-paying").change( { msg: totalAfterTaxes }, (event) => {
+        console.log(`taxes in cash payment: ${totalAfterTaxes}`);
+        let contentToInsert = $('#pay-with-cash-how-much-paying').val();
+        if (contentToInsert <= totalAfterTaxes) {
+          $('#how-much-paying').text('Please enter enough to pay your bill.');
+        } else if (contentToInsert >= totalAfterTaxes) {
+          $('#how-much-paying').text(`Thank you for your payment of ${contentToInsert}.`);
+        }
+      });
+
     }
 
+    // change will listen to box, 
+    // see if payment is sufficient
+    // give change or say isn't sufficient
 
     /* test listener to insert Receipt HTML */
     $('#show-receipt').on('click', () => {

@@ -362,6 +362,10 @@ body {
   display: none;
 }
 
+#pay-with-cash-calculator {
+  display: flex;
+  justify-content: space-between;
+}
 /* FOOTER STYLES */
 
 .list-inline-footer-list{
