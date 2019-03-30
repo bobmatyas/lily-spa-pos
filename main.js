@@ -46,31 +46,26 @@ $(() => {
 
     let cartHtmlHeader = `<div class="invoice-box">
       <table cellpadding="0" cellspacing="0">    
-      <tr class="information">
-      <td colspan="2">
-          <table>
-              <tr id="cart-payment-info-box">
+        <tr class="information">
+          <td colspan="2">
+            <table>
+                <tr id="cart-payment-info-box">
                   <td>
                       Lily's Spa, LLC.<br>
                       2900 Grandville<br>
                       Grand Rapids, MI 49519
                   </td>
               </tr>
-          </table>
-      </td>
-  </tr>
-  
-  <tr class="heading" id="cart-payment-method-display">
-      <td>
-          Payment Method
-      </td>
-      
-      <td>
-          Credit Card/ Debit Card
-      </td>
-  </tr>  <tr class="heading" id="html-table-start">
+            </table>
+          </td>
+        </tr>
+       <tr class="heading" id="cart-payment-method-display">
+          <td>Payment Method</td>
+          <td>Credit Card/ Debit Card</td>
+       </tr>  
+       <tr class="heading" id="html-table-start">
           <td>Item</td><td>Price</td>
-      </tr>`;
+       </tr>`;
    
     let cartHtmlContents = cartHtmlHeader;
 
@@ -133,9 +128,10 @@ $(() => {
     // updateCartCount();
     // console.log(`This is cart array in open cart function: ${cartArray}`);
     if (cartArray.length > 0) {
+      $('#cart-contents').show();
       showCartContents(cartArray);
     } else {
-      // console.log(`CART IS EMPTY YO!@#!`);
+      $('#information').addClass('empty-cart-warning').text('Your cart is currently empty.');
     }
   });
 
@@ -237,7 +233,7 @@ $(() => {
     console.log("service data:", data, serviceTitle);
 
     // Clear the information box
-    $('#information').empty();
+    $('#information').removeClass().empty();
 
     // Populate the information box
     for (let info of data) {
@@ -272,111 +268,6 @@ $(() => {
 
     //This is the empty array for the reciept
     const recieptArray = [];
-
-
-    /* test stuff for the steps in the process... this can be moved safely with a copy and paste */
-
-    /* this will eventually help with making the template for the receipt page */
-
-    let receiptHTML =
-      `<div class="invoice-box">
-  <table cellpadding="0" cellspacing="0">
-      <tr class="top">
-          <td colspan="2">
-              <table>
-                  <tr>
-                      <td class="title">
-                      </td>
-                  </tr>
-              </table>
-          </td>
-      </tr>
-      
-      <tr class="information">
-          <td colspan="2">
-              <table>
-                  <tr>
-                      <td>
-                          Lily's Spa, LLC.<br>
-                          2900 Grandville<br>
-                          Grand Rapids, MI 49519
-                      </td>
-                  </tr>
-              </table>
-          </td>
-      </tr>
-      
-      <tr class="heading">
-          <td>
-              Payment Method
-          </td>
-          
-          <td>
-              Credit Card/ Debit Card
-          </td>
-      </tr>
-      <tr class="heading">
-          <td>
-              Item
-          </td>
-          
-          <td>
-              Price
-          </td>
-      </tr>
-      
-      <tr class="item">
-          <td>
-             Body Masage
-          </td>
-          
-          <td>
-              $300.00
-          </td>
-      </tr>
-      <tr class="item">
-          <td>
-              Manicure
-          </td>
-          
-          <td>
-              $75.00
-          </td>
-      </tr>
-      
-      <tr class="item last">
-          <td>
-              Pedicure
-          </td>
-          
-          <td>
-              $10.00
-          </td>
-      </tr>
-      
-      <tr class="total">
-          <td></td>
-          
-          <td>
-             Sub-Total: $385.00
-          </td>
-      </tr>
-    <tr class="total">
-      <td></td>
-      
-      <td>
-         Taxes: $23.10
-      </td>
-    </tr>
-    <tr class="total">
-    <td></td>
-    
-    <td>
-       Total: $408.10
-    </td>
-  </tr>
-  </table>
-</div>`;
 
 
     /* this will eventually help with making the template for the checkout page */
@@ -460,6 +351,8 @@ $(() => {
     /* test listener to insert Receipt HTML */
     $('#show-receipt').on('click', () => {
       $('#information').empty();
+      $('#checkout-flow-title').text('Your Receipt');
+      $('#cart-contents').hide();
       //$('#modal-html-holder').html(receiptHTML);
       showCartContents(cartArray);
       $('#cart-payment-info-box, #cart-payment-method-display').show();

@@ -349,6 +349,13 @@ body {
   display: none;
 }
 
+.empty-cart-warning {
+  border: 1px solid yellow;
+  background-color: lightgoldenrodyellow;
+  padding: 50px;
+  text-align: center;
+  font-size: 2.2rem;
+}
 
 /* FOOTER STYLES */
 
