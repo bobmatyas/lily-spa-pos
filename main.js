@@ -46,7 +46,29 @@ $(() => {
 
     let cartHtmlHeader = `<div class="invoice-box">
       <table cellpadding="0" cellspacing="0">    
-        <tr class="heading" id="html-table-start">
+      <tr class="information">
+      <td colspan="2">
+          <table>
+              <tr id="cart-payment-info-box">
+                  <td>
+                      Lily's Spa, LLC.<br>
+                      2900 Grandville<br>
+                      Grand Rapids, MI 49519
+                  </td>
+              </tr>
+          </table>
+      </td>
+  </tr>
+  
+  <tr class="heading" id="cart-payment-method-display">
+      <td>
+          Payment Method
+      </td>
+      
+      <td>
+          Credit Card/ Debit Card
+      </td>
+  </tr>  <tr class="heading" id="html-table-start">
           <td>Item</td><td>Price</td>
       </tr>`;
    
@@ -68,8 +90,8 @@ $(() => {
     }
     
     // calculate taxes
-    let taxes = subTotalDisplay * 1.06;
-    let totalAfterTaxes = taxes + subTotalDisplay;
+    let totalAfterTaxes = subTotalDisplay * 1.06;
+    let taxes = subTotalDisplay * .06;
 
     /* fix the rounding */
 
@@ -83,7 +105,7 @@ $(() => {
       </tr>
       <tr class="total">
         <td></td>
-        <td>Taxes: $${taxes}</td>
+        <td>Taxes: $${taxes.toFixed(2)}</td>
       </tr>
       <tr class="total">
         <td></td>
@@ -438,7 +460,9 @@ $(() => {
     /* test listener to insert Receipt HTML */
     $('#show-receipt').on('click', () => {
       $('#information').empty();
-      $('#modal-html-holder').html(receiptHTML);
+      //$('#modal-html-holder').html(receiptHTML);
+      showCartContents(cartArray);
+      $('#cart-payment-info-box, #cart-payment-method-display').show();
       $('#modal-services-menu').hide();
     });
 
@@ -457,23 +481,6 @@ $(() => {
       $('#modal-html-holder').text('');
       $('#modal-html-holder').text('your transaction is done!');
     });
-
-    // /* test listener to insert checkout HTML */
-    // $('#show-cart').on('click', (event) => {
-    //   // console.log(`this is event: ${event}`);
-    //   // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
-
-    //   // static cart items test //
-
-    //   // let cartContentsCount = 3;
-    //   // $('#show-number-cart-items').text(cartContentsCount);
-    //   // $('#show-number-cart-items-main').text(cartContentsCount);
-
-    //   // show place holder text //
-    //   $('#modal-html-holder').text('');
-    //   $('#modal-html-holder').html('<p>this is the review cart placeholder</p>');
-    //   $('#modal-services-menu').hide();
-    // });
 
   });
 });

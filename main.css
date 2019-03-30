@@ -345,6 +345,9 @@ body {
   margin: 25px 0;
 }
 
+#cart-payment-info-box, #cart-payment-method-display {
+  display: none;
+}
 
 
 /* FOOTER STYLES */
