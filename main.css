@@ -354,7 +354,12 @@ body {
   background-color: lightgoldenrodyellow;
   padding: 50px;
   text-align: center;
-  font-size: 2.2rem;
+  font-size: 1.2rem;
+}
+
+
+#pay-with-card-input-fields {
+  display: none;
 }
 
 /* FOOTER STYLES */
@@ -423,7 +428,8 @@ margin: 0 auto;
 
   .input-fields {
 	display: flex;
-	justify-content: space-between;
+  justify-content: space-between;
+  flex-direction: column;
   }
    
   .input-fields label {
@@ -442,7 +448,7 @@ margin: 0 auto;
   }
    
   div[class*='column'] {
-	width: 382px;
+	/* width: 382px; */
   }
    
   input[type='text'],

@@ -272,59 +272,7 @@ $(() => {
 
     /* this will eventually help with making the template for the checkout page */
 
-    let checkoutHTML = `
-    <div class="checkout-panel">
-    <div class="panel-body">
-      <h2 class="title">Checkout</h2>
-      <div class="payment-method">
-        <div class="method card">
-          <div class="card-logos">
-          </div>
 
-          <div class="Payment-method-two">
-              <label for="card" class="cash">
-              </div>
-          <div class="radio-input">
-            <input id="card" type="radio" name="payment">
-            Pay 385.00 with credit card
-          </div>
-          <div class="radio-input">
-          <input id="card" type="radio" name="payment">
-          Pay 385.00 with cash
-        </div>
-            </div>
-          </div>
-   
-      <div class="input-fields">
-        <div class="column-1">
-          <label for="cardholder">Cardholder's Name</label>
-          <input type="text" id="cardholder" />
-   
-          <div class="small-inputs">
-            <div>
-              <label for="date">Valid thru</label>
-              <input type="text" id="date" placeholder="MM / YY" />
-            </div>
-   
-            <div>
-              <label for="verification">CVV / CVC *</label>
-              <input type="password" id="verification"/>
-            </div>
-          </div>
-        </div>
-        <div class="column-2">
-          <label for="cardnumber">Card Number</label>
-          <input type="password" id="cardnumber"/>
-          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
-        </div>
-      </div>
-    </div>
-   
-    <div class="panel-footer">
-      <button class="btn back-btn">Back</button>
-      <button class="btn next-btn" id="finish-transaction">Next Step</button>
-    </div>
-  </div>`;
 
     /* simple function to count sales tax, used on receipt */
 
@@ -334,13 +282,68 @@ $(() => {
     }
 
 
-    let paymentProcessing = (checkoutHTML, subTotalDisplay) => {
+    let paymentProcessing = (subTotalDisplay) => {
+
+      let totalAfterTaxes = subTotalDisplay * 1.06;
+
+      let checkoutHTML = `
+      <div class="checkout-panel">
+      <div class="panel-body">
+        <h2 class="title">Checkout</h2>
+        <div class="payment-method">
+          <div class="method card">
+            <div class="card-logos">
+            </div>
+
+            <div class="radio-input" id="pay-with-card">
+              Pay ${totalAfterTaxes} with credit card
+            </div>
+            <div class="radio-input" id="pay-with-cash">
+              Pay ${totalAfterTaxes} with cash
+            </div>
+          </div>
+        </div>
+        <div class="input-fields" id="pay-with-card-input-fields">
+          <div class="column-1">
+            <label for="cardholder">Cardholder's Name</label>
+            <input type="text" id="cardholder" />
+     
+            <div class="small-inputs">
+              <div>
+                <label for="date">Valid thru</label>
+                <input type="text" id="date" placeholder="MM / YY" />
+              </div>
+     
+              <div>
+                <label for="verification">CVV / CVC *</label>
+                <input type="password" id="verification"/>
+              </div>
+            </div>
+          </div>
+          <div class="column-2">
+            <label for="cardnumber">Card Number</label>
+            <input type="password" id="cardnumber"/>
+            <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
+          </div>
+        </div>
+      </div>
+     
+      <div class="panel-footer">
+        <button class="btn back-btn">Back</button>
+        <button class="btn next-btn" id="finish-transaction">Next Step</button>
+      </div>
+    </div>`;
       console.log('call to the payment processing function');
-      // console.log(`checkout html in payment processor: ${checkoutHTML}`);
+      console.log(`checkout html in payment processor: ${checkoutHTML}`);
       $('#modal-html-holder').html(checkoutHTML);
 
       //console.log(checkoutHTML);
       console.log(`sub-total in payment: ${subTotalDisplay}`);
+
+      $('#pay-with-card').on('click', () => {
+        $('#pay-with-card-input-fields').show();
+      });
+
     }
 
     // let testOfPayment = paymentProcessing(checkoutHTML);
@@ -360,12 +363,13 @@ $(() => {
     });
 
     /* test listener to insert checkout HTML */
-    $('#show-checkout').on('click', { msg: checkoutHTML }, (event) => {
+    // $('#show-checkout').on('click', { msg: checkoutHTML }, (event) => {
+    $('#show-checkout').on('click', (event) => {
       $('#information').empty();
       // console.log(`this is event: ${event}`);
       // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
       $('#modal-html-holder').text('');
-      paymentProcessing(checkoutHTML, subTotalDisplay);
+      paymentProcessing(subTotalDisplay);
       $('#modal-services-menu').hide();
     });
 
