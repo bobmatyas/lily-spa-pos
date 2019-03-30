@@ -470,9 +470,9 @@ body {
 	color: #2e2e2e;
   }
    
-  div[class*='column'] {
+  /* div[class*='column'] {
 	/* width: 382px; */
-  }
+  /* } */
    
   input[type='text'],
   input[type='password'], 
