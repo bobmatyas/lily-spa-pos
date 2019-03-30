@@ -68,8 +68,8 @@ $(() => {
           </td>
         </tr>
        <tr class="heading" id="cart-payment-method-display">
-          <td>Payment Method</td>
-          <td>Credit Card/ Debit Card</td>
+          <td>Invoice Status</td>
+          <td>PAID</td>
        </tr>  
        <tr class="heading" id="html-table-start">
           <td>Item</td><td>Price</td>
@@ -131,8 +131,9 @@ $(() => {
   /* this is listening to open the cart when clicked on  */
 
   $('#open-cart-button, #cart-contents').on('click', () => {
-    $('#checkout-flow-title').text('Your Cart');
     $('#information').empty();
+    $('#checkout-flow-title').text('Your Cart');
+    
     //$('#information').text(cartArray);
     //for each item in the cart array use the for of loop
     //in the loop, append the name and price to #information
@@ -216,7 +217,7 @@ $(() => {
   }
 
   /* close modal */
-  $('#close-button').on('click', () => {
+  $('#close-button, #continue-shopping').on('click', () => {
     $('#modal-container').hide();
   });
 
@@ -251,6 +252,12 @@ $(() => {
     // Clear the information box
     $('#information').removeClass().empty();
 
+    $('#information')
+       .append(
+         $(`<h2/>`)
+           .html(`${serviceTitle}`)
+       );
+
     // Populate the information box
     for (let info of data) {
       $('#information')
@@ -275,6 +282,8 @@ $(() => {
         // cartArray.push(info.price);
         subTotalDisplay += info.price;
         updateCartCount();
+
+      showCartContents(cartArray);
       });
     }
     
@@ -287,7 +296,7 @@ $(() => {
 
     let paymentProcessing = (subTotalDisplay) => {
 
-      $('#checkout-flow-title').text('Payment Information');
+      $('#checkout-flow-title').text('Checkout');
 
       let totalAfterTaxes = calculateSalesTax(subTotalDisplay);
 
@@ -295,11 +304,11 @@ $(() => {
       
       let currentDate = new Date();
       let startYear = currentDate.getFullYear();
-      let yearsSelectBox = `<select id="credit-card-year"><option>${startYear}</option>`;
+      let yearsSelectBox = `<select id="credit-card-year" name="year"> <option value="${startYear}">${startYear}</option>`;
 
       for (let i = 0; i <= 5; i++) {
         startYear += 1;
-        yearsSelectBox = `${yearsSelectBox}<option>${startYear}</option>`;
+        yearsSelectBox = `${yearsSelectBox}<option value="${startYear}">${startYear}</option>`;
       }
 
       yearsSelectBox = `${yearsSelectBox}</select>`;
@@ -324,17 +333,17 @@ $(() => {
       let checkoutHTML = `
       <div class="checkout-panel">
       <div class="panel-body">
-        <h2 class="title">Checkout</h2>
+        <h2 class="title">Payment Information</h2>
         <div class="payment-method">
           <div class="method card">
             <div class="card-logos">
             </div>
 
             <div class="radio-input" id="pay-with-card">
-              Pay ${totalAfterTaxes} with credit card
+              Pay ${totalAfterTaxes.toFixed(2)} with credit card
             </div>
             <div class="radio-input" id="pay-with-cash">
-              Pay ${totalAfterTaxes} with cash
+              Pay ${totalAfterTaxes.toFixed(2)} with cash
             </div>
           </div>
         </div>
@@ -359,24 +368,23 @@ $(() => {
           <div class="column-2">
             <label for="cardnumber">Card Number</label>
             <input type="password" id="cardnumber" max="16"/>
-            <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
           </div>
+          <button class="button-next">Add Card</button>
         </div>
       </div>
       <div class="input-fields" id="pay-with-cash-input-fields">
-        <p>pay with cash area</p>
+        <p>Cash Amount Due: $<span id = "amount-holder"> ${totalAfterTaxes.toFixed(2)} </span></p>
         <div id="pay-with-cash-calculator">
           <div>
             <input type="number" id="pay-with-cash-how-much-paying" />
           </div>
           <div id="pay-with-cash-calculator-change">
-            <p id="how-much-paying">this is where the change will go.</p>
+            <p id="how-much-paying"></p>
           </div>
         </div>
       </div>
       <div class="panel-footer">
-        <button class="btn back-btn">Back</button>
-        <button class="btn next-btn" id="finish-transaction">Next Step</button>
+        <button class="btn next-btn" id="finish-transaction">PAY</button>
       </div>
     </div>`;
       
@@ -386,14 +394,22 @@ $(() => {
     //console.log(`checkout html in payment processor: ${checkoutHTML}`);
       $('#modal-html-holder').html(checkoutHTML);
 
+      $('#continue-shopping').hide();
 
       $('#pay-with-card').on('click', () => {
         $('#pay-with-cash-input-fields').hide();
+        $('.method').hide();
         $('#pay-with-card-input-fields').show();
       });
 
+      $('#cardnumber').change(() => {
+        $("#show-receipt").show();
+
+      }); 
+
       $('#pay-with-cash').on('click', () => {
         $('#pay-with-card-input-fields').hide();
+        $('.method').hide();
         $('#pay-with-cash-input-fields').show();
       });
 
@@ -414,11 +430,13 @@ $(() => {
 
         if (contentToInsert == totalAfterTaxes) {
           $('#how-much-paying').text(`Thank you for your anticipated payment of ${contentToInsert}. Please proceed to the receipt page.`);
+          $('#show-receipt').show();
         } else if (contentToInsert <= totalAfterTaxes) {
           $('#how-much-paying').text('Please enter enough to pay your bill.');
         } else if (contentToInsert > totalAfterTaxes) {
-          $('#how-much-paying').text(`Your payment of ${contentToInsert} is an over payment.`);
+          $('#show-receipt').show();
           let changeDue = contentToInsert - decimalTotal;
+          $('#how-much-paying').text(`Your change is $${changeDue.toFixed(2)}.`);
           console.log(`change due: ${changeDue}`);
           calculateChangeDue(contentToInsert, changeDue, decimalTotal);
         }
@@ -430,13 +448,23 @@ $(() => {
 
     /* test listener to insert Receipt HTML */
     $('#show-receipt').on('click', () => {
-      $('#information').empty();
+      // $('#information').empty();
       $('#checkout-flow-title').text('Your Receipt');
       $('#cart-contents').hide();
       //$('#modal-html-holder').html(receiptHTML);
       showCartContents(cartArray);
       $('#cart-payment-info-box, #cart-payment-method-display').show();
       $('#modal-services-menu').hide();
+      $('#show-receipt').hide();
+      $('#finish').show();
+
+        // .append('<button id="finish" class="button-next">Finish</button>');
+
+    });
+
+    $('#finish').on('click', () => {
+      console.log("Is this working?")
+      location.reload();
     });
 
     /* test listener to insert checkout HTML */
@@ -447,14 +475,22 @@ $(() => {
       // console.log(`this is checkoutHTML in listener: ${checkoutHTML}`);
       $('#modal-html-holder').text('');
       paymentProcessing(subTotalDisplay);
-      $('#modal-services-menu').hide();
+      // $('#modal-services-menu').hide();
+      $('.information-maincontainer').hide();
+      $('#show-checkout').hide();
+      $('#cart-contents').hide();
+      $('#modal-html-holder').addClass('modal-width100');
+      $('#modal-html-holder').removeClass('modal-width40');
+      $('#close-button').hide();
+      $('.panel-footer').hide();
+      $('.container').css('pointer-events', 'none');
     });
 
-    $('#finish-transaction').on('click', () => {
-      console.log(`finish transaction clicked on`);
-      $('#modal-html-holder').text('');
-      $('#modal-html-holder').text('your transaction is done!');
-    });
+    // $('#finish-transaction').on('click', () => {
+    //   console.log(`finish transaction clicked on`);
+    //   $('#modal-html-holder').text('');
+    //   $('#modal-html-holder').text('your transaction is done!');
+    // });
 
 
     /* this is the calculator for cash back 
@@ -630,4 +666,5 @@ $(() => {
   }
 
   });
+
 });
