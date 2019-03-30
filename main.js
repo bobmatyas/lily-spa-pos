@@ -25,7 +25,15 @@ $(() => {
   /* this is holding the sub total */
   let subTotalDisplay = 0;
 
-  /* this function updates the cart contents on call */
+  /* simple function to count sales tax, used in cart and on receipt */
+
+  const calculateSalesTax = (totalBeforeTaxes) => {
+    let totalAfterTaxes = totalBeforeTaxes * 1.06;
+    return totalAfterTaxes;      
+  }
+
+
+  /* this function updates the item count in the cart on call */
 
   function updateCartCount () {
     let cartContentsCount = cartArray.length;
@@ -41,8 +49,8 @@ $(() => {
   /* this function shows the contents of the cart */
 
   let showCartContents = (cartArray) => {
-    console.log(`SHOW CART CONTENTS CALLED SUCCESSFULLY`);
-    console.log(`This is the cartArray in showCartContents: ${cartArray}`);
+
+    /* this sets up a block of html to build the cart template */
 
     let cartHtmlHeader = `<div class="invoice-box">
       <table cellpadding="0" cellspacing="0">    
@@ -68,11 +76,12 @@ $(() => {
        </tr>`;
    
     let cartHtmlContents = cartHtmlHeader;
+    
+    /* this loops through the cart and adds to the html template */
 
     for (let key in cartArray) {
       let lastItem = parseInt(key) + 1;
       if (lastItem === cartArray.length) {
-        console.log('this is the last item');
         let htmlItemDisplay = `
         <tr class="item" id="last-item-in-table"><td>${cartArray[key].name}</td><td>$${cartArray[key].price}.00</td></tr>`;
         cartHtmlContents = `${cartHtmlContents}${htmlItemDisplay}`;
@@ -85,13 +94,14 @@ $(() => {
     }
     
     // calculate taxes
-    let totalAfterTaxes = subTotalDisplay * 1.06;
-    let taxes = subTotalDisplay * .06;
+      let totalAfterTaxes = calculateSalesTax(subTotalDisplay);
+      let taxes = (subTotalDisplay * .06).toFixed(2);
 
-    /* fix the rounding */
+      /* fix the rounding */
 
-    let totalRounded = totalAfterTaxes.toFixed(2);
+     let totalRounded = totalAfterTaxes.toFixed(2);
 
+    // finish building the html template block 
 
     let cartHtmlFooter = `
       <tr class="total">
@@ -100,7 +110,7 @@ $(() => {
       </tr>
       <tr class="total">
         <td></td>
-        <td>Taxes: $${taxes.toFixed(2)}</td>
+        <td>Taxes: $${taxes}</td>
       </tr>
       <tr class="total">
         <td></td>
@@ -110,6 +120,9 @@ $(() => {
     </div>`;
 
     cartHtmlContents = `${cartHtmlContents}${cartHtmlFooter}`;
+    
+    // and finally, display the html for the cart contents 
+
     $('#modal-html-holder').html(cartHtmlContents);
   }
 
@@ -207,12 +220,14 @@ $(() => {
     $('#modal-container').hide();
   });
 
+
   /* this sets up listeners for when the user clicks on services */
   let services = $('#services').children();
   // console.log({ services });
   console.log(`this is what services is: ${services}`);
   let serviceId;
 
+  
   //for all these html elements when they get clicked on do the following 
 
   $(services).on('click', (event) => {
@@ -223,6 +238,7 @@ $(() => {
     $('#checkout-flow-title').text('Book A Service');
 
     console.log("The event target's text:", $(event.target).text());
+    console.log("The event target's id:", $(event.target).text());
     let serviceTitle = $(event.target).text();
 
     console.log(`this is the service title clicked on: ${serviceTitle}`);
@@ -230,7 +246,7 @@ $(() => {
     console.log(`services title object: ${servicesList[serviceTitle]}`);
     const data = servicesList[serviceTitle];
 
-    console.log("service data:", data, serviceTitle);
+    console.log("service data:", data);
 
     // Clear the information box
     $('#information').removeClass().empty();
@@ -254,14 +270,14 @@ $(() => {
 
       $(`#information`).append(`<br><br><button class="button-next" id="${info.name}"> Add to Cart </button>`);
 
-      $(`#${info.name}`).on('click', function () {
-        console.log(`${info.name}`);
+      $(`#${info.name}`).on('click', () => {
         cartArray.push({name: info.name, price: info.price});
         // cartArray.push(info.price);
         subTotalDisplay += info.price;
         updateCartCount();
-      })
+      });
     }
+    
  
     // serviceId = `#${event.target.id}`;
     showModal(serviceId);
@@ -274,23 +290,19 @@ $(() => {
 
 
 
-    /* simple function to count sales tax, used on receipt */
 
-    const calculateSalesTax = (totalBeforeTaxes) => {
-      let totalAfterTaxes = totalBeforeTaxes * 1.06;
-      return totalAfterTaxes;
-    }
 
 
     let paymentProcessing = (subTotalDisplay) => {
 
       $('#checkout-flow-title').text('Payment Information');
 
-      let totalAfterTaxes = subTotalDisplay * 1.06;
+      let totalAfterTaxes = calculateSalesTax(subTotalDisplay);
 
+      /* calculates the current year and adding 5 years to setup a select box for cc expiration */
+      
       let currentDate = new Date();
       let startYear = currentDate.getFullYear();
-
       let yearsSelectBox = `<select id="credit-card-year"><option>${startYear}</option>`;
 
       for (let i = 0; i <= 5; i++) {
@@ -299,6 +311,8 @@ $(() => {
       }
 
       yearsSelectBox = `${yearsSelectBox}</select>`;
+
+      /* sets up the cc month expiration selection */
 
       let monthsSelectBox = `<select id="credit-card-month">`;
 
@@ -311,6 +325,9 @@ $(() => {
       }
 
       monthsSelectBox = `${monthsSelectBox}</select>`;
+
+
+      /* creates the checkout html template */
 
       let checkoutHTML = `
       <div class="checkout-panel">
@@ -370,12 +387,13 @@ $(() => {
         <button class="btn next-btn" id="finish-transaction">Next Step</button>
       </div>
     </div>`;
-      console.log('call to the payment processing function');
-      //console.log(`checkout html in payment processor: ${checkoutHTML}`);
+      
+    
+    console.log('call to the payment processing function');
+    
+    //console.log(`checkout html in payment processor: ${checkoutHTML}`);
       $('#modal-html-holder').html(checkoutHTML);
 
-      //console.log(checkoutHTML);
-      console.log(`sub-total in payment: ${subTotalDisplay}`);
 
       $('#pay-with-card').on('click', () => {
         $('#pay-with-cash-input-fields').hide();
@@ -395,6 +413,12 @@ $(() => {
 
         console.log(`taxes in cash payment: ${totalAfterTaxes}`);
         let contentToInsert = $('#pay-with-cash-how-much-paying').val();
+        
+        // add decimals to total
+        
+        let decimalTotal = totalAfterTaxes.toFixed(2);
+        console.log(`taxes w/decimal: ${decimalTotal}`);
+
 
         if (contentToInsert == totalAfterTaxes) {
           $('#how-much-paying').text(`Thank you for your anticipated payment of ${contentToInsert}. Please proceed to the receipt page.`);
@@ -402,8 +426,9 @@ $(() => {
           $('#how-much-paying').text('Please enter enough to pay your bill.');
         } else if (contentToInsert > totalAfterTaxes) {
           $('#how-much-paying').text(`Your payment of ${contentToInsert} is an over payment.`);
-          let changeDue = contentToInsert - totalAfterTaxes;
+          let changeDue = contentToInsert - decimalTotal;
           console.log(`change due: ${changeDue}`);
+          calculateChangeDue(contentToInsert, changeDue, decimalTotal);
         }
        });
 
@@ -438,6 +463,103 @@ $(() => {
       $('#modal-html-holder').text('');
       $('#modal-html-holder').text('your transaction is done!');
     });
+
+
+    /* this is the calculator for cash back 
+    it calculates both the bills and the coins */
+
+    let calculateChangeDue = (amountDue, changeDue, amountTendered) => {
+      
+      console.log(`amount due in change function: ${amountTendered}`);
+      console.log(`decimal total in change function: ${amountTendered}`);
+      console.log(`change due in change function: ${changeDue}`);
+      
+      let roundedChangeAmount = roundTheNumbers(changeDue, 2);
+
+      console.log(`rounded change to run calculations: ${roundedChangeAmount}`);
+
+      let quarters = 0;
+      let dimes = 0;
+      let nickels = 0;
+      let pennys = 0;
+  
+      //check if change is due 
+  
+     if (amountTendered === amountDue) {
+      // no change due 
+      } else if (amountTendered > amountDue) {
+      //start calculating change
+      let overPayment = amountTendered - amountDue;
+      // count quarters 
+      if ( (overPayment/25) === 1) {
+        quarters = 1;
+        overPayment = overPayment - 25;
+      } else if ( (overPayment % 25) === 0) {
+        let getQuarterCount = overPayment / 25;
+        quarters = getQuarterCount;
+        overPayment -= (getQuarterCount * 25);
+      } else if ( (overPayment / 25) > 1 ) {
+        let divisionResult = Math.floor(overPayment/25);
+        quarters = divisionResult;
+        overPayment = overPayment - (divisionResult * 25);
+      }
+    
+      //count dimes
+
+      if ( (overPayment/10) === 1) {
+        dimes = 1;
+        overPayment -= 10;
+      } else if ( (overPayment % 10) === 0) {
+        let getDimeCount = overPayment / 10;
+        dimes = getDimeCount;
+        overPayment -= (getDimeCount * 10);
+      } else if ( (overPayment / 10) > 1 ) {
+        let divisionResult = Math.floor(overPayment/10);
+        dimes = divisionResult;
+        overPayment -= (divisionResult * 10);
+      } 
+    
+      //count nickels
+    
+      if ( (overPayment/5) === 1) {
+        nickels = 1;
+        overPayment -= 5;
+      } else if ( (overPayment % 5) === 0) {
+        let getNickelCount = overPayment / 5;
+        console.log(getNickelCount);
+        nickels = getNickelCount;
+        overPayment -= (getNickelCount * 5);
+      } else if ( (overPayment / 5) > 1 ) {
+        let divisionResult = Math.floor(overPayment/5);
+        nickels = divisionResult;
+        overPayment -= (divisionResult * 5);
+      } 
+    
+      // remainder is all pennys  
+      pennys = overPayment;  
+   }
+  
+    console.log(`Quarters: ${quarters}`);
+    console.log(`Dimes: ${dimes}`);
+    console.log(`Nickels: ${nickels}`);
+    console.log(`Pennys: ${pennys}`);
+  
+    return {
+      quarters: quarters,
+      dimes: dimes,
+      nickels: nickels,
+      pennys: pennys
+    }
+  }
+
+
+  /* generic rounding function */
+
+  let roundTheNumbers = (value, decimals) => {
+    let roundedNumber = Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    console.log(`rounded number: ${roundedNumber}`);
+    return roundedNumber;
+  }
 
   });
 });
