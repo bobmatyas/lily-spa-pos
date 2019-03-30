@@ -358,7 +358,7 @@ body {
 }
 
 
-#pay-with-card-input-fields {
+#pay-with-card-input-fields, #pay-with-cash-input-fields {
   display: none;
 }
 

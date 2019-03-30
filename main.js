@@ -327,7 +327,9 @@ $(() => {
           </div>
         </div>
       </div>
-     
+      <div class="input-fields" id="pay-with-cash-input-fields">
+        <p>pay with cash area</p>
+      </div>
       <div class="panel-footer">
         <button class="btn back-btn">Back</button>
         <button class="btn next-btn" id="finish-transaction">Next Step</button>
@@ -341,7 +343,13 @@ $(() => {
       console.log(`sub-total in payment: ${subTotalDisplay}`);
 
       $('#pay-with-card').on('click', () => {
+        $('#pay-with-cash-input-fields').hide();
         $('#pay-with-card-input-fields').show();
+      });
+
+      $('#pay-with-cash').on('click', () => {
+        $('#pay-with-card-input-fields').hide();
+        $('#pay-with-cash-input-fields').show();
       });
 
     }
