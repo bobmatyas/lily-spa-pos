@@ -241,6 +241,7 @@ $(() => {
     console.log("The event target's id:", $(event.target).text());
     let serviceTitle = $(event.target).text();
 
+<<<<<<< HEAD
     console.log(`this is the service title clicked on: ${serviceTitle}`);
 
     console.log(`services title object: ${servicesList[serviceTitle]}`);
@@ -250,6 +251,17 @@ $(() => {
 
     // Clear the information box
     $('#information').removeClass().empty();
+=======
+    // Loop goes here
+    for (let service of servicesArray) {
+      console.log('Service name:', service.name);
+      console.log('Service data:', service.data);
+
+      for (let data of service.data) {
+        console.log('service price:', data.price);
+      }
+    }
+>>>>>>> master
 
     // Populate the information box
     for (let info of data) {
