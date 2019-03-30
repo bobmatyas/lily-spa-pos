@@ -388,20 +388,28 @@ $(() => {
       });
 
       $("#pay-with-cash-how-much-paying").change( { msg: totalAfterTaxes }, (event) => {
+
+        // change will listen to box, 
+        // see if payment is sufficient
+        // give change or say isn't sufficient
+
         console.log(`taxes in cash payment: ${totalAfterTaxes}`);
         let contentToInsert = $('#pay-with-cash-how-much-paying').val();
-        if (contentToInsert <= totalAfterTaxes) {
+
+        if (contentToInsert == totalAfterTaxes) {
+          $('#how-much-paying').text(`Thank you for your anticipated payment of ${contentToInsert}. Please proceed to the receipt page.`);
+        } else if (contentToInsert <= totalAfterTaxes) {
           $('#how-much-paying').text('Please enter enough to pay your bill.');
-        } else if (contentToInsert >= totalAfterTaxes) {
-          $('#how-much-paying').text(`Thank you for your payment of ${contentToInsert}.`);
+        } else if (contentToInsert > totalAfterTaxes) {
+          $('#how-much-paying').text(`Your payment of ${contentToInsert} is an over payment.`);
+          let changeDue = contentToInsert - totalAfterTaxes;
+          console.log(`change due: ${changeDue}`);
         }
-      });
+       });
 
     }
 
-    // change will listen to box, 
-    // see if payment is sufficient
-    // give change or say isn't sufficient
+
 
     /* test listener to insert Receipt HTML */
     $('#show-receipt').on('click', () => {
