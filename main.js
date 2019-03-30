@@ -285,14 +285,6 @@ $(() => {
     //This is the empty array for the reciept
     const recieptArray = [];
 
-
-    /* this will eventually help with making the template for the checkout page */
-
-
-
-
-
-
     let paymentProcessing = (subTotalDisplay) => {
 
       $('#checkout-flow-title').text('Payment Information');
@@ -470,28 +462,100 @@ $(() => {
 
     let calculateChangeDue = (amountDue, changeDue, amountTendered) => {
       
-      console.log(`amount due in change function: ${amountTendered}`);
-      console.log(`decimal total in change function: ${amountTendered}`);
-      console.log(`change due in change function: ${changeDue}`);
+      // console.log(`amount due in change function: ${amountTendered}`);
+      // console.log(`decimal total in change function: ${amountTendered}`);
+      // console.log(`change due in change function: ${changeDue}`);
       
       let roundedChangeAmount = roundTheNumbers(changeDue, 2);
 
-      console.log(`rounded change to run calculations: ${roundedChangeAmount}`);
+      // console.log(`rounded change to run calculations: ${roundedChangeAmount}`);
+
+      //split number to calculate change
+      let integerPart = parseInt(roundedChangeAmount);
+      let decimalPart = roundTheNumbers((roundedChangeAmount - integerPart), 2);
+
+      let dollarOverPayment = integerPart;
+
+      let twentys = 0;
+      let tens = 0;
+      let fives = 0;
+      let singles = 0;
+
+      if (dollarOverPayment >= 1) {
+        
+        // count twenty dollar bills back        
+        if ( (dollarOverPayment/20) === 1) {
+          twentys = 1;
+          dollarOverPayment = dollarOverPayment - 20;
+        } else if ( (dollarOverPayment % 20) === 0) {
+          let getTwentyCount = dollarOverPayment / 20;
+          twentys = getTwentyCount;
+          dollarOverPayment -= (getTwentyCount * 20);
+        } else if ( (dollarOverPayment / 20) > 1 ) {
+          let divisionResult = Math.floor(dollarOverPayment/20);
+          twentys = divisionResult;
+          dollarOverPayment = dollarOverPayment - (divisionResult * 20);
+        }
+      
+        // count ten dollar bills back        
+        if ( (dollarOverPayment/10) === 1) {
+          tens = 1;
+          dollarOverPayment = dollarOverPayment - 10;
+        } else if ( (dollarOverPayment % 10) === 0) {
+          let getTensCount = dollarOverPayment / 10;
+          tens = getTensCount;
+          dollarOverPayment -= (getTensCount * 10);
+        } else if ( (dollarOverPayment / 10) > 1 ) {
+          let divisionResult = Math.floor(dollarOverPayment/10);
+          tens = divisionResult;
+          dollarOverPayment = dollarOverPayment - (divisionResult * 10);
+        }
+      
+        // count five dollar bills back        
+        if ( (dollarOverPayment/5) === 1) {
+          fives = 1;
+          dollarOverPayment = dollarOverPayment - 5;
+        } else if ( (dollarOverPayment % 5) === 0) {
+          let getFivesCount = dollarOverPayment / 5;
+          fives = getFivesCount;
+          dollarOverPayment -= (getFivesCount * 5);
+        } else if ( (dollarOverPayment / 5) > 1 ) {
+          let divisionResult = Math.floor(dollarOverPayment/5);
+          fives = divisionResult;
+          dollarOverPayment = dollarOverPayment - (divisionResult * 5);
+        }
+
+        //remainder is all dollars
+
+        singles = dollarOverPayment;   
+
+      }
+
+      console.log(`twentys back: ${twentys}`);
+      console.log(`tens back: ${tens}`);
+      console.log(`fives back: ${fives}`);
+      console.log(`dollars back: ${singles}`);
+
+      // console.log(`dollar amount: ${integerPart}`);
+      // console.log(`decimal amount: ${decimalPart}`);
+
+      //convert to 100 to make math easier
+
+      let decimalBase10 = roundTheNumbers((decimalPart * 100), 2);
+
+      console.log(`decimal at 100: ${decimalBase10}`);
 
       let quarters = 0;
       let dimes = 0;
       let nickels = 0;
       let pennys = 0;
   
+
       //check if change is due 
-  
-     if (amountTendered === amountDue) {
-      // no change due 
-      } else if (amountTendered > amountDue) {
-      //start calculating change
-      let overPayment = amountTendered - amountDue;
-      // count quarters 
-      if ( (overPayment/25) === 1) {
+      
+     let overPayment = decimalBase10;
+
+     if ( (overPayment/25) === 1) {
         quarters = 1;
         overPayment = overPayment - 25;
       } else if ( (overPayment % 25) === 0) {
@@ -537,7 +601,7 @@ $(() => {
     
       // remainder is all pennys  
       pennys = overPayment;  
-   }
+   
   
     console.log(`Quarters: ${quarters}`);
     console.log(`Dimes: ${dimes}`);
