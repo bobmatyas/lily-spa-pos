@@ -609,6 +609,10 @@ $(() => {
     console.log(`Pennys: ${pennys}`);
   
     return {
+      twentys: twentys,
+      tens: tens,
+      fives: fives,
+      dollars: singles,
       quarters: quarters,
       dimes: dimes,
       nickels: nickels,
