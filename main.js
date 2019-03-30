@@ -284,7 +284,33 @@ $(() => {
 
     let paymentProcessing = (subTotalDisplay) => {
 
+      $('#checkout-flow-title').text('Payment Information');
+
       let totalAfterTaxes = subTotalDisplay * 1.06;
+
+      let currentDate = new Date();
+      let startYear = currentDate.getFullYear();
+
+      let yearsSelectBox = `<select id="credit-card-year"><option>${startYear}</option>`;
+
+      for (let i = 0; i <= 5; i++) {
+        startYear += 1;
+        yearsSelectBox = `${yearsSelectBox}<option>${startYear}</option>`;
+      }
+
+      yearsSelectBox = `${yearsSelectBox}</select>`;
+
+      let monthsSelectBox = `<select id="credit-card-month">`;
+
+      for (let i = 1; i <= 12; i++) {
+        let paddedMonth = i;
+        if (i < 10) {
+          paddedMonth = `0${i}`;
+        }
+        monthsSelectBox = `${monthsSelectBox}<option>${paddedMonth}</option>`;
+      }
+
+      monthsSelectBox = `${monthsSelectBox}</select>`;
 
       let checkoutHTML = `
       <div class="checkout-panel">
@@ -310,19 +336,20 @@ $(() => {
      
             <div class="small-inputs">
               <div>
-                <label for="date">Valid thru</label>
-                <input type="text" id="date" placeholder="MM / YY" />
+                <label for="date">Valid thru (MM / YY)</label>
+                  ${monthsSelectBox}
+                  ${yearsSelectBox}
               </div>
      
               <div>
                 <label for="verification">CVV / CVC *</label>
-                <input type="password" id="verification"/>
+                <input type="number" min="3" max="3" id="verification"/>
               </div>
             </div>
           </div>
           <div class="column-2">
             <label for="cardnumber">Card Number</label>
-            <input type="password" id="cardnumber"/>
+            <input type="password" id="cardnumber" max="16"/>
             <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
           </div>
         </div>
@@ -336,7 +363,7 @@ $(() => {
       </div>
     </div>`;
       console.log('call to the payment processing function');
-      console.log(`checkout html in payment processor: ${checkoutHTML}`);
+      //console.log(`checkout html in payment processor: ${checkoutHTML}`);
       $('#modal-html-holder').html(checkoutHTML);
 
       //console.log(checkoutHTML);
@@ -354,10 +381,6 @@ $(() => {
 
     }
 
-    // let testOfPayment = paymentProcessing(checkoutHTML);
-    // console.log(testOfPayment);
-
-    // console.log(checkoutHTML);
 
     /* test listener to insert Receipt HTML */
     $('#show-receipt').on('click', () => {
