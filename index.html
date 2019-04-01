@@ -7,13 +7,13 @@
   <title>Lily Spa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
 
-  <div class="container">
+  <div class="container wrapper">
 
     <div class="header-container">
       <nav id="main-navigation" class="navigation-container">
@@ -23,14 +23,22 @@
         <ul class="navigation-menu">
           <li><a href="#about">about</a></li>
           <li><a href="#services">services</a></li>
-          <li id="open-cart-button"><svg width="25" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart" class="svg-inline--fa fa-shopping-cart fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="white" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg></li>
+          <li id="open-cart-button"><svg width="25" aria-hidden="true" focusable="false" data-prefix="fas"
+              data-icon="shopping-cart" class="svg-inline--fa fa-shopping-cart fa-w-18" role="img"
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path fill="white"
+                d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z">
+              </path>
+            </svg>
+            <span id="show-number-cart-items-main"> </span>
+          </li>
         </ul>
 
       </nav>
 
       <h2 class="header-mission-statement">Paradise is within. Let us take you there...</h2>
     </div>
-    
+
     <div class="services-container" id="services">
       <div id="massage-container">
         <h3 id="massage-heading" class="services-menu">Massage</h3>
@@ -47,193 +55,96 @@
     </div>
 
     <div class="about-container" id="about">
-
+      <div>
       <h2>About</h2>
-      <p>Lily Spa believes that the elimination of stress and tension is critical to the improvement and maintenance of overall well being.
-        Lily works to improve quality of life through physical and mental rejuvenation. Self esteem and a balance of health and wellness is 
-        achieved in the Oasis of calm at Lily Spa. Treatments, designed to satisfy the whole body, are provided by highly trained staff in the
-        field of massage therapy, esthetics and skincare as well as a full range of body therapies. Our on-going goal is to exceed 
-        the expectations of our individual, group, and corporate clientele with hands-on professional service.
+      <p>Lily Spa believes that the elimination 
+        of stress and tension is critical to the 
+        improvement and maintenance of your overall well 
+        being. Lily Spa works to your improve quality of 
+        life through physical and mental rejuvenation. 
+        A balance of self-esteem, health, and 
+        wellness is achieved at Lily Spa. Treatments,
+        designed to satisfy the whole body, are provided by
+        our highly trained staff. Our staff is trained in the fields of massage 
+        therapy, esthetics, and skincare, as well as a full 
+        range of body therapies. Our on-going goal is
+        to exceed the expectations of our individual, 
+        group, and corporate clientele with hands-on 
+        professional service.
       </p>
+      </div>
+      <iframe width="300" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCYDoae8zZqYew2GWNEXoDSY4jozutBNLo&q=Grand+Circus"
+        allowfullscreen></iframe>
+
     </div>
 
     <footer class="footer-container">
-     <ul class = "list-inline-footer-list">
-       <li>Send Feedback  </li>
-       <li>Gift Cards</li>
-       <li>Careers</li>
-       <li>Promotions</li>
-       <li>Contact US</li>
-
-
-     </ul>
+      <ul class="list-inline-footer-list">
+        <li>Send Feedback</li>
+        <li>Gift Cards</li>
+        <li>Careers</li>
+        <li>Promotions</li>
+        <li>Contact Us</li>
+      </ul>
     </footer>
 
-
-
-    
-    <!-- *******************************************************Code for Modal********************************************************************************** -->
-  
-  
   </div>
 
-  <div id="modal-container">
-    <div class="modal-inner-content-container">
-      <div class="modal-controls">
-          <i class="material-icons" id="close-button">close</i>
+  <!-- **************Code for Modal********************************************************************************** -->
+  <div id="modal-container" class="modal-inner-content-container">
+    <div class="modal-controls-header">
+      <div>
+        <img src="img/logo-modal-no-text.png" alt="lily spa" width="75">
       </div>
-
-      <img src="img/logo-modal-no-text.png" alt="lily spa">
-      
-      <p id="information"></p>
+      <div class="modal-controls">
+        <i class="material-icons" id="close-button">close</i>
+      </div>
     </div>
+
+    <div class="modal-header">
+      <div>
+        <h3 id="checkout-flow-title">Book a Service</h3>
+      </div>
+      <div id="cart-contents">
+        <svg width="25" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart"
+          class="svg-inline--fa fa-shopping-cart fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 576 512">
+          <path fill="black"
+            d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z">
+          </path>
+        </svg>
+        <strong>Checkout (<span id="show-number-cart-items"></span>)</strong>
+      </div>
+    </div>
+
+
+    <div class="modal-flex">
+      <div class="information-maincontainer">
+        <p id="information"></p>
+      </div>
+      <div id="modal-html-holder" class="modal-width40"> 
+      </div>
+    </div>
+
+    <div id="modal-checkout-holder"></div>
+
+    <div class= "space-between">
+    <button id="continue-shopping" class="button-next">Continue Shopping</button>
+    <button id="show-checkout" class="button-next">Checkout</button>
+    </div>
+
+    <button id="show-receipt" class="button-next">Pay</button>
+
+    <button id="finish" class="button-next">Finish</button>
+
   </div>
-  
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="main.js"></script>
 
-
-<!--*************************************************** Check-out Modal*****************************************************************************************-->
-
- <div class="checkout-panel">
-    <div class="panel-body">
-      <h2 class="title">Checkout</h2>
-      <div class="payment-method">
-        <label for="card" class="method card">
-          <div class="card-logos">
-          </div>
-
-          <div class="Payment-method-two">
-              <label for="card" class="cash">
-              </div>
-          <div class="radio-input">
-            <input id="card" type="radio" name="payment">
-            Pay 340.00 with credit card
-            </div>
-            </label>
-          </div>
-   
-      <div class="input-fields">
-        <div class="column-1">
-          <label for="cardholder">Cardholder's Name</label>
-          <input type="text" id="cardholder" />
-   
-          <div class="small-inputs">
-            <div>
-              <label for="date">Valid thru</label>
-              <input type="text" id="date" placeholder="MM / YY" />
-            </div>
-   
-            <div>
-              <label for="verification">CVV / CVC *</label>
-              <input type="password" id="verification"/>
-            </div>
-          </div>
-        </div>
-        <div class="column-2">
-          <label for="cardnumber">Card Number</label>
-          <input type="password" id="cardnumber"/>
-          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
-        </div>
-      </div>
-    </div>
-   
-    <div class="panel-footer">
-      <button class="btn back-btn">Back</button>
-      <button class="btn next-btn">Next Step</button>
-    </div>
-  </div> -->
-<!-- ****************************************************************************** Receipt Form Code ******************************************************************************************* -->
- 
-<div class="invoice-box">
-    <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td class="title">
-                            <img src="logo.png" style="width:100%; max-width:200px;">
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        
-        <tr class="information">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td>
-                            Lily's Spa, LLC.<br>
-                            2900 Grandville<br>
-                            Grand Rapids, MI 49519
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        
-        <tr class="heading">
-            <td>
-                Payment Method
-            </td>
-            
-            <td>
-                Credit Card/ Debit Card
-            </td>
-        </tr>
-        
-       <br></br>
-
-        <tr class="heading">
-            <td>
-                Item
-            </td>
-            
-            <td>
-                Price
-            </td>
-        </tr>
-        
-        <tr class="item">
-            <td>
-               Body Masage
-            </td>
-            
-            <td>
-                $300.00
-            </td>
-        </tr>
-        <tr class="item">
-            <td>
-                Manicure
-            </td>
-            
-            <td>
-                $75.00
-            </td>
-        </tr>
-        
-        <tr class="item last">
-            <td>
-                Pedicure
-            </td>
-            
-            <td>
-                $10.00
-            </td>
-        </tr>
-        
-        <tr class="total">
-            <td></td>
-            
-            <td>
-               Total: $385.00
-            </td>
-        </tr>
-    </table>
-</div> -->
 </body>
 
 
