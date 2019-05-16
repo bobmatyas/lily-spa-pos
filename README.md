@@ -2,6 +2,12 @@
 
 A mid-term project using HTML, CSS, and jQuery.
 
+Finished project:
+
+https://bobmatyas.github.io/lily-spa-pos/
+
+
+
 ## Build Specifications:
 
 POS WEBSITE
