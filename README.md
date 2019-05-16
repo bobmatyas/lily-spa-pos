@@ -1,4 +1,4 @@
-# GrandCircus Midterm Group Project
+# Grand Circus Midterm Group Project
 
 A mid-term project using HTML, CSS, and jQuery. Team project creating a website for a fictional spa.
 
@@ -6,6 +6,7 @@ Finished project:
 
 https://bobmatyas.github.io/lily-spa-pos/
 
+In addition to the coding aspect, we used GitHub and Trello to manage our work. We also provided daily updates to Grand Circus faculty at stand-up meetings.
 
 
 ## Build Specifications:
