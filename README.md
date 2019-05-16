@@ -1,6 +1,6 @@
 # GrandCircus Midterm Group Project
 
-A mid-term project using HTML, CSS, and jQuery.
+A mid-term project using HTML, CSS, and jQuery. Team project creating a website for a fictional spa.
 
 Finished project:
 
