@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-html, body, #wrapper {
-  width:100vw; 
-  min-height: 100vh;
-}
 
 html {
   font-size: 10px;
@@ -179,7 +175,6 @@ iframe {
 
 /* footer styles */
 .footer-container {
-  width:100vw; 
   display: flex;
   align-items: center;
   background-color: #282660;
@@ -196,7 +191,6 @@ iframe {
   flex-wrap: wrap;
   justify-content: space-around;
   list-style: none;
-  width:100vw;
 }
 
 .list-inline-footer-list > li {
